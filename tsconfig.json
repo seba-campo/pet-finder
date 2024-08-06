@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ESNext",
+      "esModuleInterop": false,
+      "outDir": "be-build"
+    },
+    "include": ["./be-src/**/*.ts"]
+}
