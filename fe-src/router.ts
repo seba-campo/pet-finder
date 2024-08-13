@@ -1,0 +1,11 @@
+import { Router } from "@vaadin/router";
+// import { initializeApp } from "./state";
+
+window.addEventListener("load", () => {
+  const router = new Router(document.querySelector(".root-container"));
+
+  router.setRoutes([
+    { path: "/", component: "home-page" },
+  ]);
+//   initializeApp();
+});

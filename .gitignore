@@ -1,2 +1,5 @@
 node_modules
 be-build
+dist
+.parcel-cache
+fe-dist
