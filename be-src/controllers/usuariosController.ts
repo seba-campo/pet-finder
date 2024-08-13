@@ -13,37 +13,56 @@ export const Usuario = db.define("Usuarios", {
 })
 */
 
+type UsuarioData = {
+    nombre: string,
+    email: string,
+    location: string,
+    password: string
+};
+
 const getSHA256ofSTRING = function(input){
     return crypto.createHash('sha256').update(input).digest('hex')
 };
 
-export async function registrarUsuarioNuevo(data){
-    if(!data){
-        throw "Informacion del usuario incorrecta"
+async function registrarUsuarioNuevo(data: UsuarioData){
+    const [newUser, created] = await Usuario.findOrCreate({
+        where:{
+            email: data.email
+        },
+        defaults:{
+            nombre: data.nombre,
+            email: data.email,
+            location: data.location
+        }
+    });
+
+    if(created){
+        console.log(newUser.dataValues.id)
+        const newAuth = await Auth.create({
+            email: data.email,
+            password: getSHA256ofSTRING(data.password),
+            user_id: newUser.dataValues.id
+        })
+        return newUser
     }
     else{
-        const [newUser, created] = await Usuario.findOrCreate({
-            where:{
-                email: data.email
-            },
-            defaults:{
-                nombre: data.nombre,
-                email: data.email,
-                location: data.location
-            }
-        });
-
-        if(created){
-            console.log(newUser.dataValues.id)
-            const newAuth = await Auth.create({
-                email: data.email,
-                password: getSHA256ofSTRING(data.password),
-                user_id: newUser.dataValues.id
-            })
-            return newUser
-        }
-        else{
-            throw "Usuario ya existente."
-        }
+        throw "Usuario ya existente."
     }
 };
+
+async function getUsuarios(id?: number){
+    if(id){
+        try{
+            console.log("Pedir usuario ", id)
+            return await Usuario.findByPk(id)
+        }catch(e){
+            return e
+        }
+    }
+    else{
+        const user = await Usuario.findAll();
+        return user
+    }
+}
+
+export { registrarUsuarioNuevo, getUsuarios }

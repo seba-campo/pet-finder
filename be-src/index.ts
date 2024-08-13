@@ -23,7 +23,28 @@ app.post("/user", async (req, res)=>{
         res.status(400).send(e);
     }    
 });
+// Get Users data
+app.get("/user", async (req,res)=>{
+    try{
+        res.send(await userController.getUsuarios()) 
+    }catch(e){
+        res.status(500).send(e)
+    }
+})
+
+app.get("/user/:id", async (req,res)=>{
+    try{
+        const id = parseInt(req.params.id);
+        res.send(await userController.getUsuarios(id))
+    }catch(e){
+        res.status(500).send(e)
+    }
+})
+
 // Modificacion de datos de usuario
+
+
+
 
 // Publicar mascota perdida
 
