@@ -41,6 +41,7 @@ class Navbar extends HTMLElement{
                 height: 60px;
                 width: 100%;
                 align-items: center;
+                border-radius: 0 0 5px 5px;
             }
 
             .navbar-icon{

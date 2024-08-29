@@ -24,7 +24,7 @@ app.post("/user", async (req, res)=>{
         res.status(201).send(registro)
     }catch(e){
         res.status(400).send(e);
-    }    
+    }
 });
 // Get Users data
 app.get("/user", async (req,res)=>{
