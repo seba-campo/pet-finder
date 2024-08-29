@@ -12,10 +12,31 @@ class Home extends HTMLElement{
     render(){
         const div = document.createElement("div");
         const style = document.createElement("style");
+        const homeLogo = require("../../img/homelogo.png")
 
         div.innerHTML = /*html*/`
             <div class="root">
                 <navbar-component></navbar-component>
+                <div class="main-container">
+                    <div class="logo">
+                        <img src="" alt="">
+                    </div>
+
+                    <div>
+                        <p>Pet Finder App</p>
+                    </div>
+
+                    <div>
+                        <p>Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
+                    </div>
+
+                    <div class="buttons-div">
+                        <custom-button color="blue">Dar mi ubicacion actual</custom-button>
+                        <custom-button color="green">¿Como funciona Pet Finder?</custom-button>
+                    </div>
+
+                </div>
+
             </div>
         `
         

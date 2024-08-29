@@ -6,6 +6,7 @@ import "./pages/home"
 
 // COMPONENTS
 import "./components/navbar"
+import "./components/button"
 
 (()=>{
     

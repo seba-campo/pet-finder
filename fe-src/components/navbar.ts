@@ -14,12 +14,17 @@ class Navbar extends HTMLElement{
         const style = document.createElement("style");
         const divHamburgerDeployed = document.createElement("div");
         const styleHamburgerDeployed = document.createElement("style");
+        const brandLogo = require("../img/brandlogo.png")
 
         div.innerHTML = /*html*/`
             <div class="root">
                 <div class="navbar">
-                    <div class="navbar-icon"></div>
-                    <div class="navbar-hamburguer">1</div>
+                    <div class="navbar-icon">
+                        <img src="${brandLogo}" class="navbar-brandimage">
+                    </div>
+                    <div class="navbar-hamburguer">
+                        <p>☰</p>
+                    </div>
                 </div>
             </div>
         `
@@ -41,23 +46,52 @@ class Navbar extends HTMLElement{
             .navbar-icon{
                 width: 30px;
                 height: 30px;
-                background-color: #fefefe;
                 border-radius: 50%;
                 margin: 0 15px;
             }
+
+            .navbar-brandimage{
+                width: 30px;
+            }
             
             .navbar-hamburguer{
-                width: 30px;
-                height: 30px;
-                background-color: #fefefe;
                 border-radius: 50%;
                 margin: 0 15px;
+            }
+
+            .navbar-hamburguer p{
+                font-size: 26px;
+                color: #EEEEEE;
+                margin: 0
             }
         `
 
         divHamburgerDeployed.innerHTML = /*html*/`
             <div class="root">
+                <div class="menu-close">
+                    <p class="menu-x">X</p>
+                </div>
 
+                <div class="menu-container">
+                    <div>
+                        <p>Mis datos</p>
+                    </div>
+                    <div>
+                        <p>Mis mascotas reportadas</p>
+                    </div>
+                    <div>
+                        <p>Reportar mascotas</p>
+                    </div>
+                </div>
+
+                <div class="menu-sesion-info">
+                    <div class="menu-user-mail">
+                        <p>usermail.@gmail.com</p>
+                    </div>
+                    <div class="menu-cerrar-sesion">
+                        <p>Cerrar sesion</p>
+                    </div>
+                </div>
             </div>
         `
 
@@ -66,7 +100,43 @@ class Navbar extends HTMLElement{
                 width: 100vw;
                 height: 80vh;
                 background-color: #26302E;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+            }
 
+            .menu-container{
+                color: #EEEEEE;
+                font-size: 24px;
+            }
+
+            .menu-close{
+                display: flex; 
+                justify-content: flex-end;
+                width: 100vw;
+            }
+            .menu-close p{
+                color: #EEEEEE;
+                font-size: 30px;
+                font-weight: 200;
+                margin: 10px 25px;
+            }
+
+            .menu-user-mail{
+                font-family: "Poppins", sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+                color: #EEEEEE
+            }
+
+            .menu-cerrar-sesion{
+                color: #3B97D3;
+                font-family: "Roboto", sans-serif;
+                font-weight: 500;
+                font-size: 16px;
             }
         `
 
@@ -78,6 +148,15 @@ class Navbar extends HTMLElement{
             //presentar nuevo div y stilos
             divHamburgerDeployed.appendChild(styleHamburgerDeployed)
             this.shadow.appendChild(divHamburgerDeployed)
+        })
+
+        const menuCloseEl = divHamburgerDeployed.querySelector(".menu-x");
+            menuCloseEl?.addEventListener("click", ()=>{
+            // sacar div anterior
+            this.shadow.removeChild(divHamburgerDeployed)
+            //presentar nuevo div y stilos
+            div.appendChild(style)
+            this.shadow.appendChild(div)
         })
 
         div.appendChild(style)
