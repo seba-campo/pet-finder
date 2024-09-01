@@ -1,3 +1,4 @@
+import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
 class Home extends HTMLElement{
@@ -8,6 +9,21 @@ class Home extends HTMLElement{
     }
     async connectedCallback(){
         // Se va a ejecutar cuando se corra la /page
+    }
+    getGeoLocation(){
+        navigator.geolocation.getCurrentPosition((position)=>{
+            const geoLoc = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }
+            // return geoLoc
+            state.setUserLocation(geoLoc);
+            Router.go("/feed")
+        },
+        (error)=>{
+            alert("Sin la ubicacion no se puede iniciar la app.")
+            return error
+    });
     }
     render(){
         const div = document.createElement("div");
@@ -80,17 +96,9 @@ class Home extends HTMLElement{
         `
 
         const getLocationBtnEl = div.querySelector(".main__get-location-btn") as HTMLElement;
-        getLocationBtnEl.addEventListener("click", ()=>{
-            navigator.geolocation.getCurrentPosition((position)=>{
-                const geoLoc = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                }
-                console.log(geoLoc)
-            })
+        getLocationBtnEl.addEventListener("click", async ()=>{
+           this.getGeoLocation();
         })            
-        
-
 
         div.appendChild(style)
         this.shadow.appendChild(div);

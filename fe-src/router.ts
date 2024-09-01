@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
 
   router.setRoutes([
     { path: "/", component: "home-page" },
+    { path: "/feed", component: "feed-page"}
   ]);
 //   initializeApp();
 });

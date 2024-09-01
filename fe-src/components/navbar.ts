@@ -98,6 +98,8 @@ class Navbar extends HTMLElement{
 
         styleHamburgerDeployed.innerText = /*css*/`
             .root{
+                position: absolute; 
+                z-index: 1;
                 width: 100vw;
                 height: 80vh;
                 background-color: #26302E;
@@ -112,6 +114,11 @@ class Navbar extends HTMLElement{
             .menu-container{
                 color: #EEEEEE;
                 font-size: 24px;
+                text-align:center;
+                height: 300px;
+                display: flex; 
+                justify-content: space-evenly;
+                flex-direction: column;
             }
 
             .menu-close{
@@ -152,10 +159,10 @@ class Navbar extends HTMLElement{
         })
 
         const menuCloseEl = divHamburgerDeployed.querySelector(".menu-x");
-            menuCloseEl?.addEventListener("click", ()=>{
+        menuCloseEl?.addEventListener("click", ()=>{
             // sacar div anterior
             this.shadow.removeChild(divHamburgerDeployed)
-            //presentar nuevo div y stilos
+            //presentar nuevo div y estilos
             div.appendChild(style)
             this.shadow.appendChild(div)
         })
@@ -166,3 +173,6 @@ class Navbar extends HTMLElement{
 }
 
 customElements.define("navbar-component", Navbar);
+
+// TODO: si se clicka afuera cerrar el menu desplegable
+// ahora solo se cierra con la X
