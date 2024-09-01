@@ -12,19 +12,19 @@ class Feed extends HTMLElement{
     petsLostMock = [
         {   nombre: "Bobby 1",
             location: "Nuñez, Buenos Aires",
-            imagen: "https://img.freepik.com/free-photo/portrait-adorable-chihuahua-dog-smiling_23-2148460956.jpg?t=st=1725165572~exp=1725169172~hmac=a58fce498a7a9f4a08b8997ef4455ebc6eb44f98cdfcea0237506b5ff3db4a10&w=1060"
+            imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
-        {   nombre: "Bobby 1",
+        {   nombre: "Bobby 2",
             location: "Nuñez, Buenos Aires",
-            imagen: "https://img.freepik.com/free-photo/portrait-adorable-chihuahua-dog-smiling_23-2148460956.jpg?t=st=1725165572~exp=1725169172~hmac=a58fce498a7a9f4a08b8997ef4455ebc6eb44f98cdfcea0237506b5ff3db4a10&w=1060"
+            imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
-        {   nombre: "Bobby 1",
+        {   nombre: "Bobby 3",
             location: "Nuñez, Buenos Aires",
-            imagen: "https://img.freepik.com/free-photo/portrait-adorable-chihuahua-dog-smiling_23-2148460956.jpg?t=st=1725165572~exp=1725169172~hmac=a58fce498a7a9f4a08b8997ef4455ebc6eb44f98cdfcea0237506b5ff3db4a10&w=1060"
+            imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
-        {   nombre: "Bobby 1",
+        {   nombre: "Bobby 4", 
             location: "Nuñez, Buenos Aires",
-            imagen: "https://img.freepik.com/free-photo/portrait-adorable-chihuahua-dog-smiling_23-2148460956.jpg?t=st=1725165572~exp=1725169172~hmac=a58fce498a7a9f4a08b8997ef4455ebc6eb44f98cdfcea0237506b5ff3db4a10&w=1060"
+            imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         }
     ]
     render(){
@@ -43,13 +43,14 @@ class Feed extends HTMLElement{
                     </div>
 
                     <div class="main__feed-pets">
-                        <loading-element></loading-element>
+                        <loading-element class="loading-element"></loading-element>
                         <div class="feed">
-                            
+                            ${this.petsLostMock.map((e)=>{
+                                return `<pet-card title="${e.nombre}" img="${e.imagen}"location="${e.location}"></pet-card>`
+                            })}
                         </div>
                     </div>
                 </div>
-
             </div>
         `
         
@@ -64,13 +65,28 @@ class Feed extends HTMLElement{
 
             .main__feed-pets{
                 background: linear-gradient(191.08deg, #FFFFFF 8.17%, #DEF4F0 62.61%);
-                height: calc(100vh - 60px);
                 transition: 0.3s ease-in-out;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
+                align-items: center;
+            }
+
+            .feed{
+                display: none;
+                transition: 0.3s ease-in-out;
             }
         `
+
+        const loadingElement = div.querySelector(".loading-element") as HTMLElement;
+        const feedEl = div.querySelector(".feed") as HTMLElement;
+
+        setTimeout(()=>{
+
+            loadingElement.style.display = "none";
+            feedEl.style.display = "block"
+
+        }, 3000)
 
         div.appendChild(style)
         this.shadow.appendChild(div);

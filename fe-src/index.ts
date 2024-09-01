@@ -9,6 +9,7 @@ import "./pages/publicPosts"
 import "./components/navbar"
 import "./components/button"
 import "./components/loading"
+import "./components/petCard"
 
 (()=>{
     
