@@ -1,4 +1,6 @@
 // import { state } from "../../state";
+import { Router } from "@vaadin/router";
+import "./reportForm"
 
 class Card extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
@@ -14,6 +16,7 @@ class Card extends HTMLElement{
         const imageSrc = this.getAttribute("img");
         const petName = this.getAttribute("title");
         const petLocation = this.getAttribute("location");
+        const petId = this.getAttribute("pet-id");
 
 
         div.innerHTML = /*html*/`
@@ -26,14 +29,50 @@ class Card extends HTMLElement{
                         <p class="info-name">${petName}</p>
                         <p class="info-location">${petLocation}</p>
                     </div>
-                    <div class="info-button">
-
+                    <div class="info-cta">
+                        <div class="button-alert">
+                            <p class="p-alert">Alertar!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         `
+
+        const alertCtaEl = div.querySelector(".button-alert") as HTMLElement
+        alertCtaEl.addEventListener("click", ()=>{
+            Router.go(`/alert?petId=${petId}`)
+        })
         
         style.textContent = /*css*/`
+            .info-cta{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                width: 40%;
+            }
+
+            .button-alert{
+                width:  120px;
+                height: 40px;
+                background-color: #EB6372;
+                border-radius: 10px;
+                color: white;
+                text-align: centeR; 
+                display: flex; 
+                align-items: center;
+                justify-content: center;
+            }
+
+            .p-alert{
+                margin: 0;
+                font-family: "Roboto", "sans-serif";
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 18.75px;
+                text-align: center;
+            }
+
             .card-container{
                 background-color: #26302E;
                 border-radius: 10px;

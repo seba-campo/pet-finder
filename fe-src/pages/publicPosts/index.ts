@@ -11,18 +11,22 @@ class Feed extends HTMLElement{
     }
     petsLostMock = [
         {   nombre: "Bobby 1",
+            id: 15345,
             location: "Nuñez, Buenos Aires",
             imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
         {   nombre: "Bobby 2",
+            id: 26234,
             location: "Nuñez, Buenos Aires",
             imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
         {   nombre: "Bobby 3",
+            id: 32346,
             location: "Nuñez, Buenos Aires",
             imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         },
-        {   nombre: "Bobby 4", 
+        {   nombre: "Bobby 4",
+            id: 464326, 
             location: "Nuñez, Buenos Aires",
             imagen: "https://gf2.geo.gfsrv.net/cdn13/fcebc17998aa8a1215df1e9dfe13c3.jpg"
         }
@@ -46,7 +50,7 @@ class Feed extends HTMLElement{
                         <loading-element class="loading-element"></loading-element>
                         <div class="feed">
                             ${this.petsLostMock.map((e)=>{
-                                return `<pet-card title="${e.nombre}" img="${e.imagen}"location="${e.location}"></pet-card>`
+                                return `<pet-card title="${e.nombre}" img="${e.imagen}"location="${e.location}" pet-id="${e.id}"></pet-card>`
                             })}
                         </div>
                     </div>
