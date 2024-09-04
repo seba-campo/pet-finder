@@ -5,6 +5,8 @@ import "./state"
 import "./pages/home"
 import "./pages/publicPosts"
 import "./pages/alert"
+import "./pages/login"
+import "./pages/register"
 
 // COMPONENTS
 import "./components/navbar"

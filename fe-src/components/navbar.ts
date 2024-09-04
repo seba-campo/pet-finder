@@ -1,4 +1,5 @@
 // import { state } from "../../state";
+import { Router } from "@vaadin/router";
 
 class Navbar extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
@@ -74,13 +75,16 @@ class Navbar extends HTMLElement{
                 </div>
 
                 <div class="menu-container">
-                    <div>
+                    <div class="option-div" id="inicio">
+                        <p>Inicio</p>
+                    </div>
+                    <div class="option-div">
                         <p>Mis datos</p>
                     </div>
-                    <div>
+                    <div class="option-div">
                         <p>Mis mascotas reportadas</p>
                     </div>
-                    <div>
+                    <div class="option-div">
                         <p>Reportar mascotas</p>
                     </div>
                 </div>
@@ -100,21 +104,26 @@ class Navbar extends HTMLElement{
             .root{
                 position: absolute; 
                 z-index: 1;
+                top: 0;
                 width: 100vw;
                 height: 80vh;
                 background-color: #26302E;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-start;
                 font-family: "Poppins", sans-serif;
                 font-weight: 700;
+            }
+
+            .option-div{
+                margin-left: 10px;
             }
 
             .menu-container{
                 color: #EEEEEE;
                 font-size: 24px;
-                text-align:center;
+                text-align:flex-start;
                 height: 300px;
                 display: flex; 
                 justify-content: space-evenly;
@@ -130,7 +139,12 @@ class Navbar extends HTMLElement{
                 color: #EEEEEE;
                 font-size: 30px;
                 font-weight: 200;
-                margin: 10px 25px;
+                margin: 7px 25px;
+            }
+
+            .menu-sesion-info{
+                align-self: center;
+                text-align: center;
             }
 
             .menu-user-mail{
@@ -148,6 +162,8 @@ class Navbar extends HTMLElement{
             }
         `
 
+        
+
 
         const hamburguerEl = div.querySelector(".navbar-hamburguer");
         hamburguerEl?.addEventListener("click", ()=>{
@@ -156,6 +172,12 @@ class Navbar extends HTMLElement{
             //presentar nuevo div y stilos
             divHamburgerDeployed.appendChild(styleHamburgerDeployed)
             this.shadow.appendChild(divHamburgerDeployed)
+
+            const inicioCtaEl = divHamburgerDeployed.querySelector("#inicio") as HTMLElement;
+            inicioCtaEl.addEventListener("click", ()=>{
+                Router.go("/")
+            })
+
         })
 
         const menuCloseEl = divHamburgerDeployed.querySelector(".menu-x");

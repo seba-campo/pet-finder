@@ -1,7 +1,7 @@
 import { Router } from "@vaadin/router";
 import { state } from "../../state";
 
-class Login extends HTMLElement{
+class Register extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
     constructor(){
         super();
@@ -24,7 +24,7 @@ class Login extends HTMLElement{
                     </div>
 
                     <div class="main__hero">
-                        <p class="main__subt-p">Ingresá a tu cuenta</p>
+                        <p class="main__subt-p">Registrate</p>
                     </div>
 
                     <div class="form-input">
@@ -37,14 +37,14 @@ class Login extends HTMLElement{
                         <input class="inputs" type="password" name="pasword">
                     </div>
 
+                    <div class="form-input">
+                        <label class="input-label" for="password">Repetir Contraseña</label>
+                        <input class="inputs" type="password" name="pasword">
+                    </div>
+
                     <div class="buttons-div">
-                        <custom-button color="blue">Ingresar</custom-button>
+                        <custom-button color="blue">Registrarme</custom-button>
                     </div>
-
-                    <div class="">
-                        <p class="footer">Aún no tenés una cuenta? <span class="register-span" style="color: #5A8FEC">Registrate</span></p>
-                    </div>
-
                 </div>
 
             </div>
@@ -61,7 +61,7 @@ class Login extends HTMLElement{
             }
 
             .logo-img{
-                width: 290px;
+                width: 260px;
             }
 
             .form-input{
@@ -127,10 +127,10 @@ class Login extends HTMLElement{
             }
         `
 
-        const registerCtaEl = div.querySelector(".register-span") as HTMLElement;
-        registerCtaEl.addEventListener("click", ()=>{
-            console.log("Registrarse")
-        })
+        // const registerCtaEl = div.querySelector(".register-span") as HTMLElement;
+        // registerCtaEl.addEventListener("click", ()=>{
+        //     console.log("Registrarse")
+        // })
            
 
         div.appendChild(style)
@@ -138,4 +138,4 @@ class Login extends HTMLElement{
     }
 }
 
-customElements.define("login-page", Login);
+customElements.define("register-page", Register);
