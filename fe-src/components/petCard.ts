@@ -1,5 +1,6 @@
 // import { state } from "../../state";
 import { Router } from "@vaadin/router";
+import { state } from "../state";
 import "./reportForm"
 
 class Card extends HTMLElement{
@@ -40,7 +41,8 @@ class Card extends HTMLElement{
 
         const alertCtaEl = div.querySelector(".button-alert") as HTMLElement
         alertCtaEl.addEventListener("click", ()=>{
-            Router.go(`/alert?petId=${petId}`)
+            state.setPetIdToSearch(petId as string)
+            Router.go(`/alert`)
         })
         
         style.textContent = /*css*/`

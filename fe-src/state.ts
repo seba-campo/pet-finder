@@ -3,6 +3,9 @@ export const state = {
         location: {
             longitude: 0,
             latitude: 0
+        },
+        internalData:{
+            petIdToSearch: ""
         }
     },
     listeners: [],  
@@ -26,4 +29,9 @@ export const state = {
         cs.location = newLoc;
         this.setState(cs)
     },
+    setPetIdToSearch(id: string){
+        const cs = this.getState();
+        cs.internalData.petIdToSearch = id;
+        this.setState(cs)
+    }
 }
