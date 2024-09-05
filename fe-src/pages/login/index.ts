@@ -129,7 +129,7 @@ class Login extends HTMLElement{
 
         const registerCtaEl = div.querySelector(".register-span") as HTMLElement;
         registerCtaEl.addEventListener("click", ()=>{
-            console.log("Registrarse")
+            Router.go("/auth/register")
         })
            
 

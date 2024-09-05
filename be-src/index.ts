@@ -5,6 +5,7 @@ import * as cors from "cors";
 import * as path from "path"
 // Controllers
 import * as userController from "./controllers/usuariosController"
+import * as petController from "./controllers/petController"
 import { Usuario } from "./models/user";
 import { db } from "./db";
 
@@ -26,7 +27,7 @@ app.post("/user", async (req, res)=>{
         res.status(400).send(e);
     }
 });
-// Get Users data
+// USERS
 app.get("/user", async (req,res)=>{
     try{
         res.send(await userController.getUsuarios()) 
@@ -44,6 +45,34 @@ app.get("/user/:id", async (req,res)=>{
     }
 })
 
+
+// PETS
+
+// Create lost pet report
+app.post("/pets", async (req, res)=>{
+    try{
+        const { nombre, found, location, user_id, imagen } = req.body;
+        const petData = {nombre,found,location,imagen};
+        res.send(await petController.createLostPetReport(petData, user_id))
+    }
+    catch(e){
+        res.status(500).send(e)
+    }
+})
+
+// All Pets
+app.get("/pets", async (req, res)=>{
+    if(req.body.id){
+        const response = await petController.getPetById(req.body.id)
+        res.send({response})
+    }
+    if(req.body.location){
+        console.log(req.body.location)
+        const response = await petController.getPetsByLocation(req.body.location)
+        res.send({response})
+    }
+
+})
 
 app.get("*", (req, res) => {
   res.sendFile(staticDirPath + "/index.html");

@@ -26,16 +26,42 @@ type AlertData = {
     message: string
 }
 
+export type Location = {
+    lat: number,
+    long: number
+}
+
+async function getPetById(id: number){
+    // Buscar en la DB la info de dicho PET.
+    const petFound = await Pet.findByPk(id);
+    if(petFound === null){
+        throw "No existe ningún pet con ese ID"
+    }
+    else{
+        return petFound
+    }
+}
+
+async function getPetsByLocation(loc: Location){
+    return loc
+}
+
 async function createLostPetReport(data: PetData, userId: number){
-    const newPetReport = Pet.create({
-        defaults:{
-            nombre: data.nombre,
-            found: data.found,
-            location: data.location,
-            user_id: userId,
-            imagen: data.imagen
-        }
-    });
+    try{
+        console.log(data, userId)
+        const newPetReport = await Pet.create({
+                nombre: data.nombre,
+                found: data.found,
+                location: data.location,
+                user_id: userId,
+                imagen: data.imagen
+        });
+        return newPetReport
+    }
+    catch(e){
+        return e
+    }
+
 }
 
 async function alertReport(reportId: number, reporterId: number, alertData: AlertData){
@@ -49,4 +75,4 @@ async function alertReport(reportId: number, reporterId: number, alertData: Aler
 }
 
 
-export { createLostPetReport, alertReport }
+export { createLostPetReport, alertReport, getPetById, getPetsByLocation}
