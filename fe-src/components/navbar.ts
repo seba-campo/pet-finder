@@ -1,4 +1,4 @@
-// import { state } from "../../state";
+import { state } from "../state";
 import { Router } from "@vaadin/router";
 
 class Navbar extends HTMLElement{
@@ -78,7 +78,7 @@ class Navbar extends HTMLElement{
                     <div class="option-div" id="inicio">
                         <p>Inicio</p>
                     </div>
-                    <div class="option-div">
+                    <div class="option-div" id="mis-datos">
                         <p>Mis datos</p>
                     </div>
                     <div class="option-div">
@@ -135,6 +135,7 @@ class Navbar extends HTMLElement{
                 justify-content: flex-end;
                 width: 100vw;
             }
+
             .menu-close p{
                 color: #EEEEEE;
                 font-size: 30px;
@@ -162,9 +163,6 @@ class Navbar extends HTMLElement{
             }
         `
 
-        
-
-
         const hamburguerEl = div.querySelector(".navbar-hamburguer");
         hamburguerEl?.addEventListener("click", ()=>{
             // sacar div anterior
@@ -176,6 +174,11 @@ class Navbar extends HTMLElement{
             const inicioCtaEl = divHamburgerDeployed.querySelector("#inicio") as HTMLElement;
             inicioCtaEl.addEventListener("click", ()=>{
                 Router.go("/")
+            })
+
+            const misDatosEl = divHamburgerDeployed.querySelector("#mis-datos") as HTMLElement;
+            misDatosEl.addEventListener("click", ()=>{
+                state.checkLoggedStatus() ? Router.go("/config") : Router.go("/auth/register");
             })
 
         })

@@ -6,6 +6,10 @@ export const state = {
         },
         internalData:{
             petIdToSearch: ""
+        },
+        session:{
+            isLogged: false,
+            token: ""
         }
     },
     listeners: [],  
@@ -33,5 +37,19 @@ export const state = {
         const cs = this.getState();
         cs.internalData.petIdToSearch = id;
         this.setState(cs)
+    },
+    setLoggedStatus(newStatus: boolean){
+        const cs = this.getState();
+        cs.session.isLogged = newStatus;
+        this.setState(cs)
+    },
+    setToken(token: string){
+        const cs = this.getState();
+        cs.session.token = token;
+        this.setState(cs)
+    },
+    checkLoggedStatus(){
+        const cs = this.getState();
+        return cs.session.isLogged ? true : false;
     }
 }

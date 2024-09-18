@@ -9,8 +9,6 @@ import * as petController from "./controllers/petController"
 import { Usuario } from "./models/user";
 import { db } from "./db";
 
-
-
 const staticDirPath = path.resolve(__dirname, "../fe-dist");
 const app = Express();
 const PORT = 3015;
@@ -27,6 +25,7 @@ app.post("/user", async (req, res)=>{
         res.status(400).send(e);
     }
 });
+
 // USERS
 app.get("/user", async (req,res)=>{
     try{
@@ -45,6 +44,13 @@ app.get("/user/:id", async (req,res)=>{
     }
 })
 
+app.get("/auth", async (req,res)=>{
+    const userData = {
+        email: req.body.email,
+        password: req.body.password
+    }
+    res.send(await userController.authUser(userData))
+});
 
 // PETS
 
@@ -63,15 +69,14 @@ app.post("/pets", async (req, res)=>{
 // All Pets
 app.get("/pets", async (req, res)=>{
     if(req.body.id){
-        const response = await petController.getPetById(req.body.id)
-        res.send({response})
+        res.send(await petController.getPets("id", req.body.id))
     }
     if(req.body.location){
-        console.log(req.body.location)
-        const response = await petController.getPetsByLocation(req.body.location)
-        res.send({response})
+        res.send(await petController.getPets("location", undefined, req.body.location))
     }
-
+    if(Object.keys(req.body).length === 0){
+        res.send(await petController.getPets("all", undefined, undefined))
+    }
 })
 
 app.get("*", (req, res) => {

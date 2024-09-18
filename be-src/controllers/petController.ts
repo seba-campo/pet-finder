@@ -31,19 +31,25 @@ export type Location = {
     long: number
 }
 
-async function getPetById(id: number){
-    // Buscar en la DB la info de dicho PET.
-    const petFound = await Pet.findByPk(id);
-    if(petFound === null){
-        throw "No existe ningún pet con ese ID"
+async function getPets(by: string, id?: number, loc?: Location){
+    if(by == "all"){
+        const pets = await Pet.findAll();
+        return pets
     }
-    else{
-        return petFound
+    if(by == "location"){
+        // TODO logica en algolia de busqueda por location
+        return loc
     }
-}
-
-async function getPetsByLocation(loc: Location){
-    return loc
+    if(by == "id"){
+        // Buscar en la DB la info de dicho PET.
+        const petFound = await Pet.findByPk(id);
+        if(petFound === null){
+            throw "No existe ningún pet con ese ID"
+        }
+        else{
+            return petFound
+        }
+    }
 }
 
 async function createLostPetReport(data: PetData, userId: number){
@@ -61,18 +67,16 @@ async function createLostPetReport(data: PetData, userId: number){
     catch(e){
         return e
     }
-
 }
 
+// TODO
 async function alertReport(reportId: number, reporterId: number, alertData: AlertData){
     // Alertar reporte ID, es reportado por.... y envia mail a dicho user.
     const userData = await userController.getUsuarios(reporterId);
 
     // Enviar mail al correo del user
     const userMail = userData.mail;
-    console.log(userMail)
-    
+    console.log(userMail) 
 }
 
-
-export { createLostPetReport, alertReport, getPetById, getPetsByLocation}
+export { createLostPetReport, alertReport, getPets }

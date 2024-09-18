@@ -24,6 +24,22 @@ const getSHA256ofSTRING = function(input){
     return crypto.createHash('sha256').update(input).digest('hex')
 };
 
+async function authUser(userData){
+    // cifrar la contraseña
+    const passwordHash = getSHA256ofSTRING(userData.password);
+    
+    const userToAuth = await Auth.findOne({
+        where: { email: userData.email}
+    })
+    if(userToAuth === null){
+        return 404
+    } else {
+        const data = await userToAuth as any
+        // TODO, generar JWT para session
+        return data.password == passwordHash ? 200 : 401;
+    }
+}
+
 async function registrarUsuarioNuevo(data: UsuarioData){
     const [newUser, created] = await Usuario.findOrCreate({
         where:{
@@ -44,8 +60,7 @@ async function registrarUsuarioNuevo(data: UsuarioData){
             user_id: newUser.dataValues.id
         })
         return newUser
-    }
-    else{
+    } else {
         throw "Usuario ya existente."
     }
 };
@@ -55,14 +70,13 @@ async function getUsuarios(id?: number){
         try{
             console.log("Pedir usuario ", id)
             return await Usuario.findByPk(id)
-        }catch(e){
+        } catch(e) {
             return e
         }
-    }
-    else{
+    } else {
         const user = await Usuario.findAll();
         return user
     }
 }
 
-export { registrarUsuarioNuevo, getUsuarios }
+export { registrarUsuarioNuevo, getUsuarios, authUser }
