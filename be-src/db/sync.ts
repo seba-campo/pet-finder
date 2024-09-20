@@ -4,9 +4,13 @@ import { Auth } from "../models/auth";
 import { Pet } from "../models/pet";
 
 
+
+
 (async ()=>{
    try{
-    await Usuario.sync({alter: true})
+    //await Pet.truncate()
+
+    await Usuario.sync({alter: true})    
     await Auth.sync({alter: true})
     await Pet.sync({alter: true})
     }

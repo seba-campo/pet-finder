@@ -38,7 +38,7 @@ async function authUser(userData){
         // TODO, generar JWT para session
         return data.password == passwordHash ? 200 : 401;
     }
-}
+};
 
 async function registrarUsuarioNuevo(data: UsuarioData){
     const [newUser, created] = await Usuario.findOrCreate({
@@ -77,6 +77,6 @@ async function getUsuarios(id?: number){
         const user = await Usuario.findAll();
         return user
     }
-}
+};
 
 export { registrarUsuarioNuevo, getUsuarios, authUser }

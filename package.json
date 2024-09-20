@@ -13,6 +13,7 @@
     "@types/typescript": "^2.0.0",
     "@types/uuid": "^9.0.7",
     "@vaadin/router": "^1.7.5",
+    "algoliasearch": "v4",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.2",
@@ -32,6 +33,7 @@
     "sync": "ts-node ./be-src/db/sync.ts",
     "dev:fe": "parcel ./fe-src/index.html --dist-dir ./fe-dist",
     "build:fe": "parcel build ./fe-src/index.html --dist-dir ./fe-build",
-    "start": "node ./build/index.js"
+    "start": "node ./build/index.js",
+    "algolia": "ts-node ./be-src/db/algolia.ts"
   }
 }

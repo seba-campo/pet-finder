@@ -7,7 +7,7 @@ import { Usuario } from "./user";
 export const Pet = db.define("Pets", {
     nombre: {type: DataTypes.STRING, allowNull: false},
     found: {type: DataTypes.BOOLEAN},
-    location: {type: DataTypes.STRING, allowNull: false},
+    location: {type: DataTypes.JSON, allowNull: false},//revisar el type debe ser JSON, refactorizar los POST y hacer sync en la DB
     user_id: {type: DataTypes.INTEGER, allowNull: false},
     imagen: {type: DataTypes.TEXT}
 })

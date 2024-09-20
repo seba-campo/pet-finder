@@ -2,6 +2,8 @@ import { db } from "../db";
 import { Pet } from "../models/pet";
 import { Usuario } from "../models/user";
 import * as userController from "../controllers/usuariosController"
+import { algoliaDb } from "../db/algolia";
+import { Json } from "sequelize/types/utils";
 
 /*
 export const Pet = db.define("Pets", {
@@ -16,7 +18,7 @@ export const Pet = db.define("Pets", {
 type PetData = {
     nombre: string,
     found: boolean,
-    location: string,
+    location: any,
     imagen: string
 }
 
@@ -29,7 +31,7 @@ type AlertData = {
 export type Location = {
     lat: number,
     long: number
-}
+};
 
 async function getPets(by: string, id?: number, loc?: Location){
     if(by == "all"){
@@ -50,11 +52,12 @@ async function getPets(by: string, id?: number, loc?: Location){
             return petFound
         }
     }
-}
+};
 
 async function createLostPetReport(data: PetData, userId: number){
     try{
         console.log(data, userId)
+        // Se crea registro en SQL
         const newPetReport = await Pet.create({
                 nombre: data.nombre,
                 found: data.found,
@@ -62,12 +65,24 @@ async function createLostPetReport(data: PetData, userId: number){
                 user_id: userId,
                 imagen: data.imagen
         });
+        // Se crea indice en ALGO
+        const index = algoliaDb.initIndex("pet_locations");
+        await index.saveObject(
+            {
+                "_geoloc": {
+                  "lat": data.location.lat,
+                  "lng": data.location.lng
+                },
+                petId: userId
+            }, 
+            {autoGenerateObjectIDIfNotExist: true})
+        console.log("Creado registro en Algolia")
         return newPetReport
     }
     catch(e){
         return e
     }
-}
+};
 
 // TODO
 async function alertReport(reportId: number, reporterId: number, alertData: AlertData){
@@ -77,6 +92,6 @@ async function alertReport(reportId: number, reporterId: number, alertData: Aler
     // Enviar mail al correo del user
     const userMail = userData.mail;
     console.log(userMail) 
-}
+};
 
 export { createLostPetReport, alertReport, getPets }
