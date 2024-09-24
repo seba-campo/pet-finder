@@ -29,16 +29,16 @@ class Login extends HTMLElement{
 
                     <div class="form-input">
                         <label class="input-label" for="email">Email</label>
-                        <input class="inputs" type="text" name="email">
+                        <input class="inputs" type="text" id="email" name="email">
                     </div>
 
                     <div class="form-input">
                         <label class="input-label" for="password">Contraseña</label>
-                        <input class="inputs" type="password" name="pasword">
+                        <input class="inputs" type="password" id="password" name="pasword">
                     </div>
 
-                    <div class="buttons-div">
-                        <custom-button color="blue">Ingresar</custom-button>
+                    <div class="buttons-div send-btn">
+                        <custom-button color="blue" >Ingresar</custom-button>
                     </div>
 
                     <div class="">
@@ -126,6 +126,20 @@ class Login extends HTMLElement{
                 flex-direction: column;
             }
         `
+
+        const submitBtn = div.querySelector(".send-btn") as HTMLElement;
+        submitBtn.addEventListener("click", async ()=>{
+            console.log("click")
+            const userMail = div.querySelector("#email") as HTMLInputElement
+            const userPassword = div.querySelector("#password") as HTMLInputElement
+            const userData = {
+                email: userMail.value,
+                password: userPassword.value
+            }
+            
+            console.log(await state.authUser(userData))
+        })
+        
 
         const registerCtaEl = div.querySelector(".register-span") as HTMLElement;
         registerCtaEl.addEventListener("click", ()=>{

@@ -21,7 +21,7 @@ type UsuarioData = {
 };
 
 const getSHA256ofSTRING = function(input){
-    return crypto.createHash('sha256').update(input).digest('hex')
+    return crypto.createHash('sha256').update(input).digest('hex');
 };
 
 async function authUser(userData){

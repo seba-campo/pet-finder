@@ -87,5 +87,34 @@ export const state = {
     checkLoggedStatus(){
         const cs = this.getState();
         return cs.session.isLogged ? true : false;
+    },
+    // LOGIN METHODS
+    async authUser(userData){
+        const email = userData.email;
+        const password = userData.password;
+        const API_URL = deployState.data.api_url;
+
+        await fetch(API_URL + "/auth", {
+            mode: "cors",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        .then((res)=>{
+            if(res.status == 200){
+                return res.text()
+            }
+            else if(res.status == 500){
+                throw "error"
+            }
+        })
+        .then((data)=>{
+            return data
+        })
     }
 }

@@ -44,7 +44,7 @@ app.get("/user/:id", async (req,res)=>{
     }
 })
 
-app.get("/auth", async (req,res)=>{
+app.post("/auth", async (req,res)=>{
     const userData = {
         email: req.body.email,
         password: req.body.password
