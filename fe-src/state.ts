@@ -1,3 +1,39 @@
+const PORT_API = 3015;
+
+export const deployState = {
+    data:{
+        deployed: false,
+        api_url: `http://localhost:${PORT_API}`
+    },
+    setState(newState) {
+        this.data = newState;
+    },
+    getState(){
+        return this.data;
+    },
+    setDeployedStatus(status : boolean){
+        const cs = this.getState();
+        cs.deployed = status
+        this.setState(cs)
+    },
+    getDeployStatus(){
+        return this.data.deployed;
+    },
+    getApiUrl(){
+        return this.data.api_url;
+    },
+    setApiUrl(env){
+        const cs = this.getState();
+        if(env == "dev"){
+            cs.api_url = `http://localhost:${PORT_API}`
+        }
+        if(env == "prod"){
+            cs.api_url = `api prod`
+        }
+        this.setState(cs);
+    }
+};
+
 export const state = {
     data:{
         location: {

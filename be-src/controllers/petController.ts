@@ -1,9 +1,6 @@
-import { db } from "../db";
 import { Pet } from "../models/pet";
-import { Usuario } from "../models/user";
 import * as userController from "../controllers/usuariosController"
 import { algoliaDb } from "../db/algolia";
-import { Json } from "sequelize/types/utils";
 
 /*
 export const Pet = db.define("Pets", {
@@ -56,15 +53,15 @@ async function getPets(by: string, id?: number, loc?: Location){
 
 async function createLostPetReport(data: PetData, userId: number){
     try{
-        console.log(data, userId)
         // Se crea registro en SQL
         const newPetReport = await Pet.create({
-                nombre: data.nombre,
-                found: data.found,
-                location: data.location,
-                user_id: userId,
-                imagen: data.imagen
+            nombre: data.nombre,
+            found: data.found,
+            location: data.location,
+            user_id: userId,
+            imagen: data.imagen
         });
+        console.log(data, userId)
         // Se crea indice en ALGO
         const index = algoliaDb.initIndex("pet_locations");
         await index.saveObject(
@@ -74,7 +71,7 @@ async function createLostPetReport(data: PetData, userId: number){
                   "lng": data.location.lng
                 },
                 petId: userId
-            }, 
+            },
             {autoGenerateObjectIDIfNotExist: true})
         console.log("Creado registro en Algolia")
         return newPetReport

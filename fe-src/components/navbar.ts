@@ -178,7 +178,8 @@ class Navbar extends HTMLElement{
 
             const misDatosEl = divHamburgerDeployed.querySelector("#mis-datos") as HTMLElement;
             misDatosEl.addEventListener("click", ()=>{
-                state.checkLoggedStatus() ? Router.go("/config") : Router.go("/auth/register");
+                // Revisar si ya esta logeado, y direccionar OK.
+                Router.go("/auth")
             })
 
         })
