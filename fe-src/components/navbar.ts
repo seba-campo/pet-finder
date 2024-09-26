@@ -173,13 +173,13 @@ class Navbar extends HTMLElement{
 
             const inicioCtaEl = divHamburgerDeployed.querySelector("#inicio") as HTMLElement;
             inicioCtaEl.addEventListener("click", ()=>{
-                Router.go("/")
+                deployState.handlerouteGo("/")
             })
 
             const misDatosEl = divHamburgerDeployed.querySelector("#mis-datos") as HTMLElement;
             misDatosEl.addEventListener("click", ()=>{
                 // Revisar si ya esta logeado, y direccionar OK.
-                Router.go("/auth")
+                deployState.handlerouteGo("/auth")
             })
 
         })

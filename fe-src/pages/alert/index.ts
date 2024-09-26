@@ -1,4 +1,4 @@
-import { state } from "../../state";
+import { state, deployState } from "../../state";
 import { Router } from "@vaadin/router";
 
 class Alert extends HTMLElement{
@@ -117,7 +117,7 @@ class Alert extends HTMLElement{
 
         const volverCta = div.querySelector(".volver") as HTMLElement;
         volverCta.addEventListener("click", ()=>{
-            Router.go("/feed")
+            deployState.handleRouteGo("/feed")
         })
 
         div.appendChild(style)

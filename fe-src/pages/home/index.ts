@@ -1,5 +1,5 @@
 import { Router } from "@vaadin/router";
-import { state } from "../../state";
+import { state, deployState } from "../../state";
 
 class Home extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
@@ -18,7 +18,7 @@ class Home extends HTMLElement{
             }
             // return geoLoc
             state.setUserLocation(geoLoc);
-            Router.go("/feed")
+            deployState.handleRouteGo("/feed")
         },
         (error)=>{
             alert("Sin la ubicacion no se puede iniciar la app.")

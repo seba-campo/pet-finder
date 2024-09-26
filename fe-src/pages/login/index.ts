@@ -1,5 +1,5 @@
 import { Router } from "@vaadin/router";
-import { state } from "../../state";
+import { deployState, state } from "../../state";
 
 class Login extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
@@ -137,13 +137,24 @@ class Login extends HTMLElement{
                 password: userPassword.value
             }
             
-            console.log(await state.authUser(userData))
+            try{
+                await state.authUser(userData)
+                if(state.checkLoggedStatus()){
+                    console.log("logeado")
+                    deployState.handlerouteGo("/");
+                }
+
+            }
+            catch(e){
+                console.log(e)
+            }
+
         })
         
 
         const registerCtaEl = div.querySelector(".register-span") as HTMLElement;
         registerCtaEl.addEventListener("click", ()=>{
-            Router.go("/auth/register")
+            deployState.handleRouteGo("/auth/register")
         })
            
 

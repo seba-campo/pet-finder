@@ -13,7 +13,7 @@ class Cliente extends HTMLElement{
         const style = document.createElement("style");
 
         div.innerHTML = `
-
+            <div>Hola</div>
         `
         
         style.textContent = `

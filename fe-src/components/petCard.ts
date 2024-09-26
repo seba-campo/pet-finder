@@ -42,7 +42,7 @@ class Card extends HTMLElement{
         const alertCtaEl = div.querySelector(".button-alert") as HTMLElement
         alertCtaEl.addEventListener("click", ()=>{
             state.setPetIdToSearch(petId as string)
-            Router.go(`/alert`)
+            deployState.handlerouteGo(`/alert`)
         })
         
         style.textContent = /*css*/`

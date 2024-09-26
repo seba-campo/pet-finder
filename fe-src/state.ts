@@ -1,3 +1,5 @@
+import { Router } from "@vaadin/router";
+
 const PORT_API = 3015;
 
 export const deployState = {
@@ -31,6 +33,15 @@ export const deployState = {
             cs.api_url = `api prod`
         }
         this.setState(cs);
+    },
+    handleRouteGo(path: string){
+        const ds = this.getDeployStatus();
+        if(ds){
+            Router.go("/test"+path)
+        }
+        if(!ds){
+            Router.go(path)
+        }
     }
 };
 
@@ -107,14 +118,13 @@ export const state = {
         })
         .then((res)=>{
             if(res.status == 200){
-                return res.text()
+                this.setLoggedStatus(true)
+                return "logged"
             }
             else if(res.status == 500){
+                this.setLoggedStatus(false)
                 throw "error"
             }
-        })
-        .then((data)=>{
-            return data
         })
     }
 }
