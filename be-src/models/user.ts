@@ -5,7 +5,7 @@ import { Auth } from "./auth";
 export const Usuario = db.define("Usuarios", {
     nombre: {type: DataTypes.STRING, allowNull: false},
     email: {type: DataTypes.STRING, allowNull: false},
-    location: {type: DataTypes.STRING}
+    location: {type: DataTypes.JSON}
 });
 
 Usuario.hasOne(Auth,{as: "Auth", foreignKey: "user_id"});

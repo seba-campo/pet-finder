@@ -126,5 +126,22 @@ export const state = {
                 throw "error"
             }
         })
+    },
+    // PETS
+    async getPetsLost(){
+        const API_URL = deployState.data.api_url;
+        return await fetch(API_URL+"/pets", {
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data)=>{
+            return data
+        })
     }
 }

@@ -1,5 +1,5 @@
 import "./router"
-import "./state"
+import {state, deployState} from "./state"
 
 // PAGES
 import "./pages/home"
@@ -16,5 +16,6 @@ import "./components/petCard"
 import "./components/reportForm"
 
 (()=>{
-    
+   
+
 })()

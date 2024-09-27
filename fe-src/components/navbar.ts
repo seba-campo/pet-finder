@@ -1,4 +1,4 @@
-import { state } from "../state";
+import { state, deployState } from "../state";
 import { Router } from "@vaadin/router";
 
 class Navbar extends HTMLElement{
@@ -165,6 +165,10 @@ class Navbar extends HTMLElement{
 
         const hamburguerEl = div.querySelector(".navbar-hamburguer");
         hamburguerEl?.addEventListener("click", ()=>{
+            // Chekeo la sesion al abrir el burguer
+            const userLogged = state.checkLoggedStatus();
+
+
             // sacar div anterior
             this.shadow.removeChild(div)
             //presentar nuevo div y stilos
@@ -173,16 +177,27 @@ class Navbar extends HTMLElement{
 
             const inicioCtaEl = divHamburgerDeployed.querySelector("#inicio") as HTMLElement;
             inicioCtaEl.addEventListener("click", ()=>{
-                deployState.handlerouteGo("/")
+                deployState.handleRouteGo("/")
             })
 
             const misDatosEl = divHamburgerDeployed.querySelector("#mis-datos") as HTMLElement;
             misDatosEl.addEventListener("click", ()=>{
-                // Revisar si ya esta logeado, y direccionar OK.
-                deployState.handlerouteGo("/auth")
+                userLogged ? deployState.handleRouteGo("/feed") : deployState.handleRouteGo("/auth")
             })
 
+            const cerrarSesionEl = divHamburgerDeployed.querySelector(".menu-cerrar-sesion") as HTMLElement;
+            cerrarSesionEl.addEventListener("click", ()=>{
+                if(userLogged){
+                    state.setLoggedStatus(false);
+                    deployState.handleRouteGo("/")
+                }
+                else{
+                    console.log("No estas logeado :)"); 
+                }
+                    
+            })
         })
+
 
         const menuCloseEl = divHamburgerDeployed.querySelector(".menu-x");
         menuCloseEl?.addEventListener("click", ()=>{

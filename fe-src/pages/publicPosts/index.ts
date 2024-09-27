@@ -7,7 +7,6 @@ class Feed extends HTMLElement{
         this.render();
     }
     async connectedCallback(){
-        // Se va a ejecutar cuando se corra la /page
     }
     petsLostMock = [
         {   nombre: "Bobby 1",
@@ -49,9 +48,6 @@ class Feed extends HTMLElement{
                     <div class="main__feed-pets">
                         <loading-element class="loading-element"></loading-element>
                         <div class="feed">
-                            ${this.petsLostMock.map((e)=>{
-                                return `<pet-card title="${e.nombre}" img="${e.imagen}"location="${e.location}" pet-id="${e.id}"></pet-card>`
-                            })}
                         </div>
                     </div>
                 </div>
@@ -79,18 +75,31 @@ class Feed extends HTMLElement{
             .feed{
                 display: none;
                 transition: 0.3s ease-in-out;
+                height: calc(100vh - 60px);
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
             }
         `
 
         const loadingElement = div.querySelector(".loading-element") as HTMLElement;
         const feedEl = div.querySelector(".feed") as HTMLElement;
-
-        setTimeout(()=>{
-
+        
+        state.getPetsLost().then((pets)=>{
+            for(let p of pets){
+                feedEl.innerHTML += `<pet-card title="${p.nombre}" img="${p.imagen}"location="${p.location}" pet-id="${p.id}"></pet-card>`
+            }
+            
             loadingElement.style.display = "none";
-            feedEl.style.display = "block"
+            feedEl.style.display = "flex"
+        })
 
-        }, 3000)
+
+        // setTimeout(async ()=>{
+
+        //     console.log(await state.getPetsLost())
+
+        // }, 3000)
 
         div.appendChild(style)
         this.shadow.appendChild(div);

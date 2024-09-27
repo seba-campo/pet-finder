@@ -6,18 +6,18 @@ import { deployState } from "./state.ts";
 window.addEventListener("load", () => {
   const router = new Router(document.querySelector(".root-container"));
 
-  // Check if is deployed...
-  const actualUrl = window.location.origin;
-  if(actualUrl.startsWith("https://seba-campo.github.io")){
-    deployState.setDeployedStatus(true)
-    deployState.setApiUrl("prod")
-  }
-  if(actualUrl.startsWith("http://localhost")){
-    console.log("Dev-mode active")  
-    deployState.setDeployedStatus(false)
-    deployState.setApiUrl("dev")
-  }
-
+   // Check if is deployed...
+   const actualUrl = window.location.origin;
+   if(actualUrl.startsWith("https://seba-campo.github.io")){
+     deployState.setDeployedStatus(true)
+     deployState.setApiUrl("prod")
+   }
+   if(actualUrl.startsWith("http://localhost")){
+     console.log("Dev-mode active")  
+     deployState.setDeployedStatus(false)
+     deployState.setApiUrl("dev")
+   }
+   
   console.log(deployState.getDeployStatus())
 
   const currentDeploy = deployState.getDeployStatus();

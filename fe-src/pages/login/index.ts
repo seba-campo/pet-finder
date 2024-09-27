@@ -141,7 +141,7 @@ class Login extends HTMLElement{
                 await state.authUser(userData)
                 if(state.checkLoggedStatus()){
                     console.log("logeado")
-                    deployState.handlerouteGo("/");
+                    deployState.handleRouteGo("/");
                 }
 
             }
