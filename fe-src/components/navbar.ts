@@ -81,10 +81,10 @@ class Navbar extends HTMLElement{
                     <div class="option-div" id="mis-datos">
                         <p>Mis datos</p>
                     </div>
-                    <div class="option-div">
+                    <div class="option-div" id="mis-reportes">
                         <p>Mis mascotas reportadas</p>
                     </div>
-                    <div class="option-div">
+                    <div class="option-div" id="reportar">
                         <p>Reportar mascotas</p>
                     </div>
                 </div>
@@ -178,6 +178,11 @@ class Navbar extends HTMLElement{
             const inicioCtaEl = divHamburgerDeployed.querySelector("#inicio") as HTMLElement;
             inicioCtaEl.addEventListener("click", ()=>{
                 deployState.handleRouteGo("/")
+            })
+
+            const misReportesEl = divHamburgerDeployed.querySelector("#mis-reportes") as HTMLElement;
+            misReportesEl.addEventListener("click", ()=>{
+                userLogged ? deployState.handleRouteGo("/my-reports") : deployState.handleRouteGo("/auth")
             })
 
             const misDatosEl = divHamburgerDeployed.querySelector("#mis-datos") as HTMLElement;

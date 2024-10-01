@@ -7,6 +7,7 @@ import "./pages/publicPosts"
 import "./pages/alert"
 import "./pages/login"
 import "./pages/register"
+import "./pages/myPosts"
 
 // COMPONENTS
 import "./components/navbar"

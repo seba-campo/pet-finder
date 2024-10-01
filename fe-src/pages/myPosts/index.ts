@@ -4,6 +4,7 @@ class Cliente extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
     constructor(){
         super();
+        this.render()
     }
     async connectedCallback(){
         // Se va a ejecutar cuando se corra la /page

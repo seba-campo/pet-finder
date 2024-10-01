@@ -12,6 +12,7 @@ class Home extends HTMLElement{
     }
     getGeoLocation(){
         navigator.geolocation.getCurrentPosition((position)=>{
+            console.log(position)
             const geoLoc = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
