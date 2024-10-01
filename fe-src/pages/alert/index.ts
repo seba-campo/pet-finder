@@ -5,8 +5,11 @@ class Alert extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
     constructor(){
         super();
-        const petId = state.getState().internalData.petIdToSearch
+        const cs = state.getState()
+        const petId = cs.internalData.petIdToSearch
         this.search = petId;
+        const petNombre = cs.petInfo.nombre
+        this.nombre = petNombre
         this.render()
     }
     async connectedCallback(){
@@ -14,6 +17,7 @@ class Alert extends HTMLElement{
 
     }
     search : string = ""
+    nombre: string = ""
     render(){
         const div = document.createElement("div");
         const style = document.createElement("style");
@@ -23,7 +27,7 @@ class Alert extends HTMLElement{
             <navbar-component></navbar-component>
             <div class="form-container">
                 <div class="form-title">
-                    <p>Reportar info de</p>
+                    <p>Reportar info de ${this.nombre}</p>
                 </div>
 
                 <div class="form-input">

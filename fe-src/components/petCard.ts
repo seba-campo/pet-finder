@@ -40,8 +40,11 @@ class Card extends HTMLElement{
         `
 
         const alertCtaEl = div.querySelector(".button-alert") as HTMLElement
-        alertCtaEl.addEventListener("click", ()=>{
-            state.setPetIdToSearch(petId as string)
+        alertCtaEl.addEventListener("click", async ()=>{
+            // Controlar el boton alert, y realizar las llamadas correspondientes
+            state.setPetIdToSearch(petId as any)
+            await state.getPetData()
+
             deployState.handleRouteGo(`/alert`)
         })
         

@@ -1,4 +1,5 @@
 import { Router } from "@vaadin/router";
+import { Pet } from "./lib/types";
 
 const PORT_API = 3015;
 
@@ -52,7 +53,15 @@ export const state = {
             latitude: 0
         },
         internalData:{
-            petIdToSearch: ""
+            petIdToSearch: 0,
+        },
+        petInfo: {
+            id: 0,
+            nombre: "",
+            found: false,
+            location: {},
+            user_id: 0,
+            imagen: ""
         },
         session:{
             isLogged: false,
@@ -80,7 +89,7 @@ export const state = {
         cs.location = newLoc;
         this.setState(cs)
     },
-    setPetIdToSearch(id: string){
+    setPetIdToSearch(id: number){
         const cs = this.getState();
         cs.internalData.petIdToSearch = id;
         this.setState(cs)
@@ -98,6 +107,11 @@ export const state = {
     checkLoggedStatus(){
         const cs = this.getState();
         return cs.session.isLogged ? true : false;
+    },
+    setPetInfo(newPetInfo: Pet){
+        const cs = this.getState();
+        cs.petInfo = newPetInfo;
+        this.setState(cs)
     },
     // LOGIN METHODS
     async authUser(userData){
@@ -141,6 +155,25 @@ export const state = {
             return res.json()
         })
         .then((data)=>{
+            return data
+        })
+    },
+    async getPetData(){
+        const cs = this.getState();
+        const API_URL = deployState.data.api_url;
+        return await fetch(API_URL+"/pets/"+cs.internalData.petIdToSearch, {
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((data)=>{
+            console.log(data)
+            this.setPetInfo(data)
             return data
         })
     }
