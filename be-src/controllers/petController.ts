@@ -30,7 +30,7 @@ export type Location = {
     long: number
 };
 
-async function getPets(by: string, id?: number, loc?: Location){
+async function getPets(by: string, id?: number, loc?: Location, uId?: number){
     if(by == "all"){
         const pets = await Pet.findAll();
         return pets
@@ -48,6 +48,14 @@ async function getPets(by: string, id?: number, loc?: Location){
         else{
             return petFound
         }
+    }
+    if(by == "userId"){
+        const pets = await Pet.findAll({
+            where: {
+                user_id: uId
+            }
+        })
+        return pets
     }
 };
 

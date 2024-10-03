@@ -69,15 +69,19 @@ app.post("/pets", async (req, res)=>{
 // All Pets
 app.get("/pets", async (req, res)=>{
     if(req.body.location){
-        res.send(await petController.getPets("location", undefined, req.body.location))
+        res.send(await petController.getPets("location", null, req.body.location))
     }
     if(Object.keys(req.body).length === 0){
-        res.send(await petController.getPets("all", undefined, undefined))
+        res.send(await petController.getPets("all", null, null))
     }
 })
 
 app.get("/pets/:id", async (req, res)=>{
     res.send(await petController.getPets("id", parseInt(req.params.id)))
+})
+
+app.get("/petsByUser/:id", async(req, res)=>{
+    res.send(await petController.getPets("userId", null, null, parseInt(req.params.id)))
 })
 
 app.get("*", (req, res) => {
