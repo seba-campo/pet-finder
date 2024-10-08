@@ -65,7 +65,13 @@ export const state = {
         },
         session:{
             isLogged: false,
-            token: ""
+            token: "",
+            userId: 0
+        },
+        userData:{
+            nombre: "",
+            id: 0,
+            email: ""
         }
     },
     listeners: [],  
@@ -113,13 +119,28 @@ export const state = {
         cs.petInfo = newPetInfo;
         this.setState(cs)
     },
+    setUserMail(email: string){
+        const cs = this.getState();
+        cs.userData.email = email;
+        this.setState(cs)
+    },
+    setUserId(id: number){
+        const cs = this.getState();
+        cs.sesion.userId = id;
+        this.setState(cs)
+    },
+    setUserData(data){
+        const cs = this.getState();
+        cs.userData = data
+        this.setState(cs)
+    },
     // LOGIN METHODS
     async authUser(userData){
         const email = userData.email;
         const password = userData.password;
         const API_URL = deployState.data.api_url;
 
-        await fetch(API_URL + "/auth", {
+        await fetch(API_URL+"/auth", {
             mode: "cors",
             method: "POST",
             headers: {
@@ -130,17 +151,38 @@ export const state = {
                 password: password
             })
         })
-        .then((res)=>{
+        .then(async (res)=>{
             if(res.status == 200){
                 this.setLoggedStatus(true)
-                return "logged"
+                this.setUserMail(email)
             }
             else if(res.status == 500){
                 this.setLoggedStatus(false)
-                throw "error"
             }
         })
     },
+    async getUserData(email: string){
+        const API_URL = deployState.data.api_url;
+        return await fetch(API_URL+"/user/by?email="+email,{
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then((res)=>{
+            if(res.status == 200){
+                return res.json()
+            }
+            else if(res.status == 404){
+                throw "Error de validacion, email incorrecto"
+            }
+        })
+        .then((data)=>{
+            return data
+        })
+    },
+    
     // PETS
     async getPetsLost(){
         const API_URL = deployState.data.api_url;
@@ -176,5 +218,28 @@ export const state = {
             this.setPetInfo(data)
             return data
         })
+    },
+    async getUserReports(){
+        const cs = this.getState();
+        const API_URL = deployState.data.api_url;
+        const userData = cs.userData;
+
+        console.log(userData.id)
+
+        return await fetch(API_URL+"/petsByUser/"+userData.id,{
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((res)=>{
+            return res.json()
+        })
+        .then((data)=>{
+            console.log("EP GET USER REPORTS", data)
+            return data
+        })
+
     }
 }

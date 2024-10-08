@@ -92,7 +92,7 @@ async function createLostPetReport(data: PetData, userId: number){
 // TODO
 async function alertReport(reportId: number, reporterId: number, alertData: AlertData){
     // Alertar reporte ID, es reportado por.... y envia mail a dicho user.
-    const userData = await userController.getUsuarios(reporterId);
+    const userData = await userController.getUsuarioById(reporterId);
 
     // Enviar mail al correo del user
     const userMail = userData.mail;

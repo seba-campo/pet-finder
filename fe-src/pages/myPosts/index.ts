@@ -1,4 +1,4 @@
-import { state } from "../../state";
+import { deployState, state } from "../../state";
 
 class Cliente extends HTMLElement{
     shadow = this.attachShadow({mode: "open"});
@@ -12,20 +12,23 @@ class Cliente extends HTMLElement{
     render(){
         const div = document.createElement("div");
         const style = document.createElement("style");
-        const homeLogo = require("../../img/homelogo.png")
 
         div.innerHTML = /*html*/`
             <div class="root">
                 <navbar-component></navbar-component>
                 <div class="main-container">
                     <div class="main__hero">
-                        <p class="main__hero-p">Mis mascotas reportadas</p>
-                        <p class="main__subt-p">Encontrá y reportá mascotas perdidas cerca de tu ubicación</p>
+                        <p class="main__hero-p">Mis reportes</p>
+                    </div>
+                    
+                    <div class="main__feed-pets">
+                        <loading-element class="loading-element"></loading-element>
+                        <div class="feed">
+                        </div>
                     </div>
 
                     <div class="buttons-div">
-                        <custom-button color="blue" class="main__get-location-btn">Dar mi ubicacion actual</custom-button>
-                        <custom-button color="green">¿Como funciona Pet Finder?</custom-button>
+                        <custom-button color="blue" class="main__get-location-btn">Reportar una mascota</custom-button>
                     </div>
                 </div>
             </div>
@@ -65,13 +68,46 @@ class Cliente extends HTMLElement{
                 max-width: 70vw;
             }
 
+            .feed{
+                display: none;
+                transition: 0.3s ease-in-out;
+                height: calc(100vh - 60px);
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
             .buttons-div{
                 height: 140px;
                 display: flex; 
                 justify-content: space-evenly;
                 flex-direction: column;
+                margin-bottom: 30px;
             }
         `
+
+        const loadingElement = div.querySelector(".loading-element") as HTMLElement;
+        const feedEl = div.querySelector(".feed") as HTMLElement;
+        // Chekeo si está logueado
+        if(state.checkLoggedStatus()){
+            const userMail = state.getState().userData.email;
+            state.getUserData(userMail)
+            .then((data)=>{
+                state.setUserData(data)
+                state.getUserReports().then((pets)=>{
+                    for(let p of pets){
+                        feedEl.innerHTML += `<pet-card title="${p.nombre}" img="${p.imagen}"location="${p.location.lat}, ${p.location.lng}" pet-id="${p.id}"></pet-card>`
+                    }
+                    
+                    loadingElement.style.display = "none";
+                    feedEl.style.display = "flex"
+                })
+            })
+            
+        }
+        else{
+            deployState.handleRouteGo("/")
+        }
 
         div.appendChild(style)
         this.shadow.appendChild(div);

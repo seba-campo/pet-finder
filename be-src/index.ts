@@ -29,18 +29,30 @@ app.post("/user", async (req, res)=>{
 // USERS
 app.get("/user", async (req,res)=>{
     try{
-        res.send(await userController.getUsuarios()) 
+        res.send(await userController.getAllUsuarios()) 
     }catch(e){
         res.status(500).send(e)
     }
 })
 
-app.get("/user/:id", async (req,res)=>{
-    try{
-        const id = parseInt(req.params.id);
-        res.send(await userController.getUsuarios(id))
-    }catch(e){
-        res.status(500).send(e)
+app.get("/user/by", async (req,res)=>{
+    const id = req.query.id as any;
+    const email = req.query.email as string;
+    if(id){
+        try{
+            res.send(await userController.getUsuarioById(parseInt(id)))
+        }
+        catch(e){
+            res.status(500).send(e)
+        }
+    }
+    if(email){
+        try{
+            res.send(await userController.getUsuarioByMail(email))
+        }
+        catch(e){
+            res.status(500).send(e)
+        }
     }
 })
 

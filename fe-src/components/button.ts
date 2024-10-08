@@ -31,9 +31,6 @@ class CustomButton extends HTMLElement{
         const div = document.createElement("div");
         const style = document.createElement("style");
 
-        console.log(this.color)
-        console.log(this.textContent)
-
         div.innerHTML = /*html*/`
             <div class="root">
                 <p>${this.textContent}</p>

@@ -65,18 +65,33 @@ async function registrarUsuarioNuevo(data: UsuarioData){
     }
 };
 
-async function getUsuarios(id?: number){
-    if(id){
-        try{
-            console.log("Pedir usuario ", id)
-            return await Usuario.findByPk(id)
-        } catch(e) {
-            return e
-        }
-    } else {
-        const user = await Usuario.findAll();
-        return user
+async function getUsuarioByMail(mail: string){
+    try{
+        const userFound = await Usuario.findOne({
+            where:{
+                email: mail
+            }
+        })
+
+        return userFound
+    }
+    catch(e){
+        return e
+    }
+}
+
+async function getUsuarioById(id: number){
+    try{
+        console.log("Pedir usuario ", id)
+        return await Usuario.findByPk(id)
+    } catch(e) {
+        return e
     }
 };
 
-export { registrarUsuarioNuevo, getUsuarios, authUser }
+async function getAllUsuarios(){
+    const user = await Usuario.findAll();
+    return user
+}
+
+export { registrarUsuarioNuevo, getAllUsuarios, getUsuarioById, authUser, getUsuarioByMail }
