@@ -1,7 +1,30 @@
 import { Router } from "@vaadin/router";
 import { Pet } from "./lib/types";
+import { v2 as cloudinary } from 'cloudinary';
 
 const PORT_API = 3015;
+const CLOUD_NAME= "dlhotzwpo"
+const CLOUD_API_KEY = "658649741377831"
+const CLOUD_API_SECRET = "ZgXXDgM8aUYnFBVI-J5DCwUITjw"
+
+cloudinary.config({ 
+    cloud_name: CLOUD_NAME, 
+    api_key: CLOUD_API_KEY, 
+    api_secret: CLOUD_API_SECRET
+});
+
+// const optimizeUrl = cloudinary.url('shoes', {
+//     fetch_format: 'auto',
+//     quality: 'auto'
+// });
+
+// // Transform the image: auto-crop to square aspect_ratio
+// const autoCropUrl = cloudinary.url('shoes', {
+//     crop: 'auto',
+//     gravity: 'auto',
+//     width: 500,
+//     height: 500,
+// });
 
 export const deployState = {
     data:{
@@ -241,5 +264,8 @@ export const state = {
             return data
         })
 
+    },
+    async uploadPicture(path){
+        
     }
 }
