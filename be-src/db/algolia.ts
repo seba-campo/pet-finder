@@ -1,9 +1,10 @@
 // Importar todo el módulo algoliasearch
 import * as algo from 'algoliasearch';
+import { loadKeys } from '../controllers/keysController';
 
 export const algoliaDb = algo.default(
-    "LY2I08L66Q",
-    "638064402fff6b133acb653029ab0060"
+    loadKeys().databases.algolia.APP_ID,
+    loadKeys().databases.algolia.WRITE_API_KEY
 );
 
 // try{

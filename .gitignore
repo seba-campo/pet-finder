@@ -3,3 +3,4 @@ be-build
 dist
 .parcel-cache
 fe-dist
+keys.json

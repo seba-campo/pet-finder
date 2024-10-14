@@ -6,6 +6,7 @@ import * as path from "path"
 // Controllers
 import * as userController from "./controllers/usuariosController"
 import * as petController from "./controllers/petController"
+import { loadKeys } from "./controllers/keysController";
 import { Usuario } from "./models/user";
 import { db } from "./db";
 
@@ -15,6 +16,7 @@ const PORT = 3015;
 app.use(cors());
 app.use(bodyParser())
 app.use(Express.static(staticDirPath));
+// loadKeys()
 
 // Registro y login de usuarios
 app.post("/user", async (req, res)=>{
