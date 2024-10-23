@@ -82,6 +82,7 @@ export const state = {
             id: 0,
             nombre: "",
             found: false,
+            petNameUbi: "",
             location: {},
             user_id: 0,
             imagen: ""
@@ -156,6 +157,14 @@ export const state = {
         const cs = this.getState();
         cs.userData = data
         this.setState(cs)
+    },
+    checkPetInfo(){
+        const cs = this.getState().petInfo;
+        let nombre = false;
+        let petNameUbi = false;
+        // Normalizar que la ubicacion en DB tenga también un texto descriptivo para que la card lo levante. 
+
+
     },
     // LOGIN METHODS
     async authUser(userData){

@@ -39,7 +39,8 @@ window.addEventListener("load", () => {
       { path: "/alert", component: "pet-alert"},
       { path: "/auth", component: "login-page"},
       { path: "/auth/register", component: "register-page"},
-      { path: "/my-reports", component: "cliente-page"}
+      { path: "/my-reports", component: "cliente-page"},
+      { path: "/create-report", component: "createreport-page"}
     ]);
   }
 });
