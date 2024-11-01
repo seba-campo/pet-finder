@@ -1,30 +1,7 @@
 import { Router } from "@vaadin/router";
 import { Pet } from "./lib/types";
-import { v2 as cloudinary } from 'cloudinary';
 
 const PORT_API = 3015;
-const CLOUD_NAME= "dlhotzwpo"
-const CLOUD_API_KEY = "658649741377831"
-const CLOUD_API_SECRET = "ZgXXDgM8aUYnFBVI-J5DCwUITjw"
-
-cloudinary.config({ 
-    cloud_name: CLOUD_NAME, 
-    api_key: CLOUD_API_KEY, 
-    api_secret: CLOUD_API_SECRET
-});
-
-// const optimizeUrl = cloudinary.url('shoes', {
-//     fetch_format: 'auto',
-//     quality: 'auto'
-// });
-
-// // Transform the image: auto-crop to square aspect_ratio
-// const autoCropUrl = cloudinary.url('shoes', {
-//     crop: 'auto',
-//     gravity: 'auto',
-//     width: 500,
-//     height: 500,
-// });
 
 export const deployState = {
     data:{
@@ -85,7 +62,8 @@ export const state = {
             petNameUbi: "",
             location: {},
             user_id: 0,
-            imagen: ""
+            imagenUrl: "",
+            imagenCode: ""
         },
         session:{
             isLogged: false,
@@ -158,12 +136,40 @@ export const state = {
         cs.userData = data
         this.setState(cs)
     },
+    setPetName(name){
+        const cs = this.getState();
+        cs.petInfo.nombre = name;
+        this.setState(cs);
+    },
     checkPetInfo(){
-        const cs = this.getState().petInfo;
+        const petInfo = this.getState().petInfo;
         let nombre = false;
         let petNameUbi = false;
+        let petLocation = false;
+        let imagenCode = false;
+        let userId = false;
         // Normalizar que la ubicacion en DB tenga también un texto descriptivo para que la card lo levante. 
+        if(petInfo.nombre.length != 0){
+            nombre = true
+        }
+        if(petInfo.petNameUbi.length != 0){
+            petNameUbi = true
+        }
+        if(Object.keys(petInfo.location).length != 0){
+            petLocation = true
+        }
+        if(petInfo.imagenCode.length != 0){
+            imagenCode = true
+        }
+        if(petInfo.user_id != 0){
+            userId = true
+        }
 
+        if(nombre && petNameUbi && petLocation && imagenCode && userId){
+            return true
+        }else{
+            return false
+        }
 
     },
     // LOGIN METHODS
@@ -276,5 +282,43 @@ export const state = {
     },
     async uploadPicture(path){
         
-    }
+    },
+    async createNewReport(){
+        /* nombre: data.nombre,
+        found: data.found,
+        location: data.location,
+        user_id: userId,
+        imagenCode: data.imagenCode */
+        const cs = this.getState();
+        const API_URL = deployState.data.api_url;
+        const userData = cs.userData;
+        const petData = cs.petInfo
+
+        return await fetch(API_URL+"/pets", {
+            mode: "cors",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nombre: petData.nombre,
+                found: false,
+                location: {
+                    lat: petData.location.lat,
+                    lng: petData.location.lng
+                },
+                user_id: userData.id,
+                imagen: petData.imagenCode
+            })
+        })
+        .then((res)=>{
+            if(res.status == 200){
+                console.log("ok")
+            }
+            else if(res.status == 500){
+                console.log("not ok")
+            }
+        })
+    },
+    
 }

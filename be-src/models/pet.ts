@@ -13,6 +13,7 @@ export const Pet = db.define("Pets", {
             lng
         }
     */
+    locationName: {type: DataTypes.STRING},
     user_id: {type: DataTypes.INTEGER, allowNull: false},
     imagen: {type: DataTypes.TEXT}
 })

@@ -14,6 +14,7 @@ const staticDirPath = path.resolve(__dirname, "../fe-dist");
 const app = Express();
 const PORT = 3015;
 app.use(cors());
+app.use(Express.json({ limit: '2mb' }));
 app.use(bodyParser())
 app.use(Express.static(staticDirPath));
 // loadKeys()

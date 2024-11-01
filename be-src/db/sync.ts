@@ -10,7 +10,7 @@ import { Pet } from "../models/pet";
    try{
     //await Pet.truncate()
 
-    await Usuario.sync({force: true})    
+    await Usuario.sync({alter: true})    
     await Auth.sync({alter: true})
     await Pet.sync({alter: true})
     }

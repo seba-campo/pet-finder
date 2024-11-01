@@ -1,5 +1,7 @@
 import { state } from "../../state";
 import mapboxgl from 'mapbox-gl';
+import Dropzone from "dropzone";
+
 
 mapboxgl.accessToken = process.env.MAPBOX_TOKEN as any;
 let map;
@@ -10,6 +12,7 @@ class NewReport extends HTMLElement{
         super();
         this.render();
         this.initMap();
+        this.myFunctionDropzone();
     }
     async connectedCallback(){
         // Se va a ejecutar cuando se corra la /page
@@ -78,6 +81,7 @@ class NewReport extends HTMLElement{
               layout: {
                 "icon-image": "marker", // Cambia esto por el icono que desees
                 "icon-size": 1.5,
+        
               },
             });
           });
@@ -98,6 +102,29 @@ class NewReport extends HTMLElement{
         }
       });
     }
+    myFunctionDropzone() {
+      const imgDropzone = this.shadow.querySelector(".dropzone") as HTMLImageElement;
+      let imageURL;
+  
+      const myDropzone = new Dropzone(imgDropzone, {
+        url: "/falsa",
+        autoProcessQueue: false,
+        maxFilesize: 2097152
+      });
+      myDropzone.on("thumbnail", function (file) {
+        const imageText = file.dataURL;
+        const currentState = state.getState();
+        imageURL = imageText;
+        imgDropzone.src = imageURL;
+        currentState.petInfo.imagenCode = imageURL;
+        // console.log(imageURL)
+        state.setState(currentState);
+        // Cargar la imagen debe ser en front para poder llevarla a la API
+      });
+      myDropzone.on("addedfile", function () {
+        myDropzone.processQueue();
+      });
+    }
     render(){
         const div = document.createElement("div");
         const style = document.createElement("style");
@@ -114,13 +141,13 @@ class NewReport extends HTMLElement{
                     </div>
 
                     <div class="form-input">
-                        <label class="input-label" for="email">Nombre</label>
-                        <input class="inputs" type="text" id="email" name="email">
+                        <label class="input-label" for="nombre">Nombre</label>
+                        <input class="inputs" type="text" id="nombre" name="nombre">
                     </div>
 
                     <div class="form-image">
-                        <img src="${imagePlaceholder}" class="image-pet">
-                        <custom-button color="blue" >Agregar foto</custom-button>
+                      <img class="dropzone image-zone" src="https://res.cloudinary.com/dlhotzwpo/image/upload/v1730422559/b2bb50582f7f28d9d1ce6aface294522_x6tiqu.png" alt="">
+                      <!-- <label class="input-label" for="nombre">Carga la foto de tu mascota</label> -->
                     </div>
 
                     <div class="form-map">
@@ -128,12 +155,12 @@ class NewReport extends HTMLElement{
                         </div>
                         <p class="map-legend">Buscá un punto de referencia para reportar la mascota. Por ejemplo, la ubicación donde lo viste por última vez.</p>
                         <label class="input-label" for="localidad">Localidad</label>
-                        <input class="inputs" type="text" id="localidad" name="localidad">
+                        <input class="inputs" placeholder="Ej: Buenos Aires, Munro" type="text" id="localidad" name="localidad">
                         <custom-button color="blue" id="buscar-loc">Buscar localidad</custom-button>
                     </div>
 
                     <div class="buttons-div send-btn">
-                         <custom-button color="blue" class="submit">Reportar mascota</custom-button>
+                         <custom-button color="green" class="submit">Reportar mascota</custom-button>
                          <custom-button color="black">Cancelar</custom-button>
                     </div>
                 </div>
@@ -160,8 +187,8 @@ class NewReport extends HTMLElement{
 
             .form-image{
                 width: 80vw;
-                height: 250px;
-                margin: 25px 0px;
+                /* height: 250px; */
+                margin: 45px 0px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -171,6 +198,7 @@ class NewReport extends HTMLElement{
             .image-pet{
                 width: 335px;
                 height: 180px;
+                margin-bottom: 45px;
             }
 
             .form-map{
@@ -220,6 +248,14 @@ class NewReport extends HTMLElement{
                 margin: 6px 0;
             }
 
+            .main__hero{
+              height: 90px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 30px 0;
+            }
+
             .main__hero-p{
                 font-size: 36px;
                 font-weight: 700;
@@ -255,6 +291,13 @@ class NewReport extends HTMLElement{
                 display: flex; 
                 justify-content: space-evenly;
                 flex-direction: column;
+                align-items: center;
+                height: 120px;
+                margin: 25px 0;
+            }
+
+            .image-zone{
+              width: 80vw;
             }
         `
 
@@ -266,16 +309,24 @@ class NewReport extends HTMLElement{
         // Guardar el reporte completo
         const submitBtn = div.querySelector(".submit") as HTMLElement;
         submitBtn.addEventListener("click", ()=>{
+          const petNameEl = div.querySelector("#nombre") as HTMLInputElement;
+          state.setPetName(petNameEl.value)
           // Validar el state completo para subir. 
-          const currentState = state.getPetInfo();
-          
+          if(state.checkPetInfo()){
+            // console.log(state.getState().petInfo)
+            state.createNewReport();
+          }
+          else{ 
+            alert("Revisa los datos ingresados.")
+          }
 
         })
 
-
+        
         div.appendChild(style)
         this.shadow.appendChild(div);
     }
+    
 }
 
 customElements.define("createreport-page", NewReport);

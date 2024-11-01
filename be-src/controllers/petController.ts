@@ -1,6 +1,9 @@
 import { Pet } from "../models/pet";
 import * as userController from "../controllers/usuariosController"
 import { algoliaDb } from "../db/algolia";
+import { v2 as cloudinary } from 'cloudinary';
+import { cloudConfig } from "../db/cloudinary";
+
 
 /*
 export const Pet = db.define("Pets", {
@@ -29,6 +32,8 @@ export type Location = {
     lat: number,
     long: number
 };
+
+cloudConfig()
 
 async function getPets(by: string, id?: number, loc?: Location, uId?: number){
     if(by == "all"){
@@ -61,13 +66,24 @@ async function getPets(by: string, id?: number, loc?: Location, uId?: number){
 
 async function createLostPetReport(data: PetData, userId: number){
     try{
+        // console.log(data)
+        let imageUrl : string;
+        try {
+            // Upload the image
+            const result = await cloudinary.uploader.upload(data.imagen);
+            imageUrl = result.secure_url
+            // return result.secure_url;
+        } catch (error) {
+            console.error(error);
+        }
+        
         // Se crea registro en SQL
         const newPetReport = await Pet.create({
             nombre: data.nombre,
             found: data.found,
             location: data.location,
             user_id: userId,
-            imagen: data.imagen
+            imagen: imageUrl
         });
         console.log(data, userId)
         // Se crea indice en ALGO
@@ -81,7 +97,8 @@ async function createLostPetReport(data: PetData, userId: number){
                 petId: userId
             },
             {autoGenerateObjectIDIfNotExist: true})
-        console.log("Creado registro en Algolia")
+        console.log("Creado registro en Algolia");
+        
         return newPetReport
     }
     catch(e){
