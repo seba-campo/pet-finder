@@ -190,6 +190,11 @@ class Navbar extends HTMLElement{
                 userLogged ? deployState.handleRouteGo("/feed") : deployState.handleRouteGo("/auth")
             })
 
+            const reportarEl = divHamburgerDeployed.querySelector("#reportar") as HTMLElement;
+            reportarEl.addEventListener("click", ()=>{
+                userLogged ? deployState.handleRouteGo("/create-report") : deployState.handleRouteGo("/auth")
+            })
+
             const cerrarSesionEl = divHamburgerDeployed.querySelector(".menu-cerrar-sesion") as HTMLElement;
             cerrarSesionEl.addEventListener("click", ()=>{
                 if(userLogged){

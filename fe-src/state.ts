@@ -128,7 +128,7 @@ export const state = {
     },
     setUserId(id: number){
         const cs = this.getState();
-        cs.sesion.userId = id;
+        cs.userData.id = id;
         this.setState(cs)
     },
     setUserData(data){
@@ -143,6 +143,7 @@ export const state = {
     },
     checkPetInfo(){
         const petInfo = this.getState().petInfo;
+        const currentState = this.getState();
         let nombre = false;
         let petNameUbi = false;
         let petLocation = false;
@@ -161,7 +162,7 @@ export const state = {
         if(petInfo.imagenCode.length != 0){
             imagenCode = true
         }
-        if(petInfo.user_id != 0){
+        if(currentState.userData.id != 0){
             userId = true
         }
 
@@ -193,6 +194,8 @@ export const state = {
             if(res.status == 200){
                 this.setLoggedStatus(true)
                 this.setUserMail(email)
+                const userData = await this.getUserData(email);
+                this.setUserId(userData.id)
             }
             else if(res.status == 500){
                 this.setLoggedStatus(false)

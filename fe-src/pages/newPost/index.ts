@@ -177,6 +177,13 @@ class NewReport extends HTMLElement{
                 align-items: center;
             }
 
+            .main_logo{
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              align-items: center;
+            }
+
             .form-input{
                 display: flex;
                 flex-direction: column;
