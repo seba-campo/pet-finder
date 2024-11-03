@@ -94,11 +94,10 @@ async function createLostPetReport(data: PetData, userId: number){
                   "lat": data.location.lat,
                   "lng": data.location.lng
                 },
-                petId: userId
+                petId: newPetReport.get().id
             },
             {autoGenerateObjectIDIfNotExist: true})
         console.log("Creado registro en Algolia");
-        
         return newPetReport
     }
     catch(e){
