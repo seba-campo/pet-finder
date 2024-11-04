@@ -20,6 +20,7 @@ type PetData = {
     found: boolean,
     location: any,
     imagen: string
+    locationName: string
 }
 
 type AlertData = { 
@@ -83,7 +84,8 @@ async function createLostPetReport(data: PetData, userId: number){
             found: data.found,
             location: data.location,
             user_id: userId,
-            imagen: imageUrl
+            imagen: imageUrl,
+            locationName: data.locationName
         });
         console.log(data, userId)
         // Se crea indice en ALGO

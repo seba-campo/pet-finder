@@ -132,7 +132,8 @@ class NewReport extends HTMLElement{
         
         div.innerHTML = /*html*/`
             <div class="root">
-                <navbar-component></navbar-component>
+                <navbar-component>
+                </navbar-component>
                 <div class="main-container">
                     <div class="main_logo">
 
@@ -169,12 +170,12 @@ class NewReport extends HTMLElement{
         
         style.textContent = /*css*/`
             .main-container{
-                background: linear-gradient(191.08deg, #FFFFFF 8.17%, #DEF4F0 62.61%);
-                /* height: calc(100vh - 60px); */
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                align-items: center;
+              background: linear-gradient(191.08deg, #FFFFFF 8.17%, #DEF4F0 62.61%);
+              /* height: calc(100vh - 60px); */
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              align-items: center;
             }
 
             .main_logo{
@@ -185,40 +186,40 @@ class NewReport extends HTMLElement{
             }
 
             .form-input{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-evenly;
-                width: 325px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: space-evenly;
+              width: 325px;
             }
 
             .form-image{
-                width: 80vw;
-                /* height: 250px; */
-                margin: 45px 0px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
+              width: 80vw;
+              /* height: 250px; */
+              margin: 45px 0px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
             }
 
             .image-pet{
-                width: 335px;
-                height: 180px;
-                margin-bottom: 45px;
+              width: 335px;
+              height: 180px;
+              margin-bottom: 45px;
             }
 
             .form-map{
-                width: 80vw;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
+              width: 80vw;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
             }
 
             .map-div{
-                /* width:334px;
-                height:253px; */
+              /* width:334px;
+              height:253px; */
             }
 
             .mapboxgl-ctrl-bottom-right{
@@ -230,29 +231,29 @@ class NewReport extends HTMLElement{
             }
 
             .map-legend{
-                font-family: "Roboto", sans-serif;
-                width: 80vw;
-                font-size: 16px;
-                font-weight: 400;
-                line-height: 18.75px;
-                text-align: center;
+              font-family: "Roboto", sans-serif;
+              width: 80vw;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 18.75px;
+              text-align: center;
             }
 
             .input-label{
-                font-family: "Poppins", "sans-serif";
-                font-size: 16px;
-                font-weight: 400;
-                line-height: 24px;
-                text-align: left;
-                align-self: flex-start
+              font-family: "Poppins", "sans-serif";
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 24px;
+              text-align: left;
+              align-self: flex-start
             }
 
             .inputs{
-                width: 320px;
-                height: 35px;
-                border: 0;
-                font-size: 20px;
-                margin: 6px 0;
+              width: 320px;
+              height: 35px;
+              border: 0;
+              font-size: 20px;
+              margin: 6px 0;
             }
 
             .main__hero{
@@ -264,43 +265,43 @@ class NewReport extends HTMLElement{
             }
 
             .main__hero-p{
-                font-size: 36px;
-                font-weight: 700;
-                align: center;
-                font-family: "Poppins", "sans-serif";
-                text-align: center;
-                color: #EB6372;
-                margin: 0;
+              font-size: 36px;
+              font-weight: 700;
+              align: center;
+              font-family: "Poppins", "sans-serif";
+              text-align: center;
+              color: #EB6372;
+              margin: 0;
             }
 
             .main__subt-p{
-                font-family: "Poppins", "sans-serif";
-                font-size: 24px;
-                font-weight: 400;
-                line-height: 36px;
-                text-align: center;
-                margin: 0;
-                max-width: 70vw;
+              font-family: "Poppins", "sans-serif";
+              font-size: 24px;
+              font-weight: 400;
+              line-height: 36px;
+              text-align: center;
+              margin: 0;
+              max-width: 70vw;
             }
 
             .footer{
-                font-family: "Poppins", "sans-serif";
-                font-size: 22px;
-                font-weight: 400;
-                line-height: 36px;
-                text-align: center;
-                margin: 0;
-                max-width: 70vw;
+              font-family: "Poppins", "sans-serif";
+              font-size: 22px;
+              font-weight: 400;
+              line-height: 36px;
+              text-align: center;
+              margin: 0;
+              max-width: 70vw;
             }
 
             .buttons-div{
-                height: 80px;
-                display: flex; 
-                justify-content: space-evenly;
-                flex-direction: column;
-                align-items: center;
-                height: 120px;
-                margin: 25px 0;
+              height: 80px;
+              display: flex; 
+              justify-content: space-evenly;
+              flex-direction: column;
+              align-items: center;
+              height: 120px;
+              margin: 25px 0;
             }
 
             .image-zone{

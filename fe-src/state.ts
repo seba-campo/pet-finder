@@ -311,7 +311,8 @@ export const state = {
                     lng: petData.location.lng
                 },
                 user_id: userData.id,
-                imagen: petData.imagenCode
+                imagen: petData.imagenCode,
+                locationName: petData.locationName
             })
         })
         .then((res)=>{

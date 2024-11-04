@@ -68,12 +68,11 @@ app.post("/auth", async (req,res)=>{
 });
 
 // PETS
-
 // Create lost pet report
 app.post("/pets", async (req, res)=>{
     try{
-        const { nombre, found, location, user_id, imagen } = req.body;
-        const petData = {nombre,found,location,imagen};
+        const { nombre, found, location, user_id, imagen, locationName } = req.body;
+        const petData = {nombre,found,location,imagen,locationName};
         res.send(await petController.createLostPetReport(petData, user_id))
     }
     catch(e){
@@ -104,13 +103,7 @@ app.get("*", (req, res) => {
 });
 
 // Modificacion de datos de usuario
-
-
-
-
 // Publicar mascota perdida
-
-
 app.listen(PORT, ()=>{
     console.log("App lanzada en: ", PORT);
 });

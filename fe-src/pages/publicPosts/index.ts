@@ -80,6 +80,10 @@ class Feed extends HTMLElement{
                 justify-content: space-evenly;
                 align-items: center;
             }
+
+            .pet-card{
+                margin: 10px 0;
+            }
         `
 
         const loadingElement = div.querySelector(".loading-element") as HTMLElement;
@@ -87,7 +91,7 @@ class Feed extends HTMLElement{
         
         state.getPetsLost().then((pets)=>{
             for(let p of pets){
-                feedEl.innerHTML += `<pet-card title="${p.nombre}" img="${p.imagen}"location="${p.location}" pet-id="${p.id}"></pet-card>`
+                feedEl.innerHTML += `<pet-card class="pet-card" title="${p.nombre}" img="${p.imagen}"location="${p.locationName}" pet-id="${p.id}"></pet-card>`
             }
             
             loadingElement.style.display = "none";
