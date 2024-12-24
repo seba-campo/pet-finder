@@ -32,19 +32,19 @@ class Alert extends HTMLElement{
 
                 <div class="form-input">
                     <label class="input-label" for="name">Nombre</label>
-                    <input class="inputs" type="text" name="name">
+                    <input class="inputs name" type="text" name="name">
                 </div>
                 <div class="form-input">
                     <label class="input-label" for="telefono">Teléfono</label>
-                    <input class="inputs" type="text" name="telefono">
+                    <input class="inputs phone" type="text" name="telefono">
                 </div>
                 <div class="form-input">
                     <label class="input-label" for="information">¿Dónde lo viste?</label>
-                    <textarea class="inputs" rows="6" cols="50" type="textarea" id="information" name="information"></textarea>
+                    <textarea class="inputs info" rows="6" cols="50" type="textarea" id="information" name="information"></textarea>
                 </div>
 
                 <div class="buttons-div">
-                    <custom-button class="buttons" color="green">Enviar informacion</custom-button>
+                    <custom-button class="buttons enviar" color="green">Enviar informacion</custom-button>
                     <custom-button class="buttons volver" color="black">Volver</custom-button>
                 </div>
             </div>
@@ -122,6 +122,15 @@ class Alert extends HTMLElement{
         const volverCta = div.querySelector(".volver") as HTMLElement;
         volverCta.addEventListener("click", ()=>{
             deployState.handleRouteGo("/feed")
+        })
+
+        const submitCta = div.querySelector(".enviar") as HTMLElement;
+        submitCta.addEventListener("click", ()=>{
+            const name = div.querySelector(".name") as HTMLInputElement;
+            const phone = div.querySelector(".phone") as HTMLInputElement;
+            const info = div.querySelector(".info") as HTMLInputElement;
+
+            
         })
 
         div.appendChild(style)

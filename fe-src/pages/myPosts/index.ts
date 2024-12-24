@@ -37,7 +37,7 @@ class Cliente extends HTMLElement{
         style.textContent = /*css*/`
             .main-container{
                 background: linear-gradient(191.08deg, #FFFFFF 8.17%, #DEF4F0 62.61%);
-                height: calc(100vh - 60px);
+                min-height: calc(100vh - 60px);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
@@ -96,7 +96,7 @@ class Cliente extends HTMLElement{
                 state.setUserData(data)
                 state.getUserReports().then((pets)=>{
                     for(let p of pets){
-                        feedEl.innerHTML += `<pet-card title="${p.nombre}" img="${p.imagen}"location="${p.location.lat}, ${p.location.lng}" pet-id="${p.id}"></pet-card>`
+                        feedEl.innerHTML += `<pet-card title="${p.nombre}" img="${p.imagen}"location="${p.locationName}" pet-id="${p.id}"></pet-card>`
                     }
                     
                     loadingElement.style.display = "none";

@@ -6,6 +6,7 @@ import * as path from "path"
 // Controllers
 import * as userController from "./controllers/usuariosController"
 import * as petController from "./controllers/petController"
+import * as mailController from "./controllers/mailController"
 import { loadKeys } from "./controllers/keysController";
 import { Usuario } from "./models/user";
 import { db } from "./db";
@@ -88,18 +89,24 @@ app.get("/pets", async (req, res)=>{
     if(Object.keys(req.body).length === 0){
         res.send(await petController.getPets("all", null, null))
     }
-})
+});
 
 app.get("/pets/:id", async (req, res)=>{
     res.send(await petController.getPets("id", parseInt(req.params.id)))
-})
+});
 
 app.get("/petsByUser/:id", async(req, res)=>{
     res.send(await petController.getPets("userId", null, null, parseInt(req.params.id)))
-})
+});
 
 app.get("*", (req, res) => {
   res.sendFile(staticDirPath + "/index.html");
+});
+
+// MAILS
+app.put("/mail", async(req, res)=>{
+    const { from, to, message, pet} = req.body;
+    res.send(await mailController.sendMail(from, to, pet, message))
 });
 
 // Modificacion de datos de usuario

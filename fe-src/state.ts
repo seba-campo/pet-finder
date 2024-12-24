@@ -46,6 +46,38 @@ export const deployState = {
     }
 };
 
+type State = {
+    data:{
+        location: {
+            longitude: number,
+            latitude: number
+        },
+        internalData:{
+            petIdToSearch: number,
+        },
+        petInfo: {
+            id: number,
+            nombre: string,
+            found: Boolean,
+            petNameUbi: string,
+            location: Object,
+            user_id: number,
+            imagenUrl: string,
+            imagenCode: string
+        },
+        session:{
+            isLogged: Boolean,
+            token: string,
+            userId: number
+        },
+        userData:{
+            nombre: string,
+            id: number,
+            email: string
+        }
+    }
+}
+
 export const state = {
     data:{
         location: {
@@ -324,5 +356,10 @@ export const state = {
             }
         })
     },
-    
+    setReportData(newState){
+
+    },
+    async sendReportAlert(){
+
+    }
 }

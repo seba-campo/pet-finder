@@ -52,7 +52,7 @@ async function getPets(by: string, id?: number, loc?: Location, uId?: number){
             throw "No existe ningún pet con ese ID"
         }
         else{
-            return petFound
+            return petFound as any
         }
     }
     if(by == "userId"){

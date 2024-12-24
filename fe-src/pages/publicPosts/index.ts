@@ -75,7 +75,7 @@ class Feed extends HTMLElement{
             .feed{
                 display: none;
                 transition: 0.3s ease-in-out;
-                height: calc(100vh - 60px);
+                min-height: calc(100vh - 60px);
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
