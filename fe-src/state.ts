@@ -2,6 +2,8 @@ import { Router } from "@vaadin/router";
 import { Pet } from "./lib/types";
 
 const PORT_API = 3015;
+const DEV_API = `http://localhost:${PORT_API}`
+const PROD_API = "https://pet-finder-pzu3.onrender.com"
 
 export const deployState = {
     data:{
@@ -28,10 +30,10 @@ export const deployState = {
     setApiUrl(env){
         const cs = this.getState();
         if(env == "dev"){
-            cs.api_url = `http://localhost:${PORT_API}`
+            cs.api_url = DEV_API;
         }
         if(env == "prod"){
-            cs.api_url = `api prod`
+            cs.api_url = PROD_API;
         }
         this.setState(cs);
     },

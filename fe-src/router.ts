@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
 
    // Check if is deployed...
    const actualUrl = window.location.origin;
-   if(actualUrl.startsWith("https://seba-campo.github.io")){
+   if(actualUrl.startsWith("https://pet-finder-pzu3.onrender.com")){
      deployState.setDeployedStatus(true)
      deployState.setApiUrl("prod")
    }
