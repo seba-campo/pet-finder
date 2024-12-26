@@ -13,7 +13,7 @@ import { db } from "./db";
 
 const staticDirPath = path.resolve(__dirname, "../fe-build");
 const app = Express();
-// const PORT = 3015;
+const PORT = 3015;
 app.use(cors());
 app.use(Express.json({ limit: '2mb' }));
 app.use(bodyParser())
@@ -111,6 +111,6 @@ app.put("/mail", async(req, res)=>{
 
 // Modificacion de datos de usuario
 // Publicar mascota perdida
-app.listen(()=>{
+app.listen(PORT, ()=>{
     console.log("App lanzada");
 });
