@@ -24,11 +24,13 @@ window.addEventListener("load", () => {
   // prod
   if(currentDeploy){
     router.setRoutes([
-      { path: "a/", component: "home-page" },
-      { path: "a/feed", component: "feed-page"},
-      { path: "a/alert", component: "pet-alert"},
-      { path: "a/auth", component: "login-page"},
-      { path: "a/auth/register", component: "register-page"} 
+      { path: "/", component: "home-page" },
+      { path: "/feed", component: "feed-page"},
+      { path: "/alert", component: "pet-alert"},
+      { path: "/auth", component: "login-page"},
+      { path: "/auth/register", component: "register-page"},
+      { path: "/my-reports", component: "cliente-page"},
+      { path: "/create-report", component: "createreport-page"}
     ]);
   }
   // dev
