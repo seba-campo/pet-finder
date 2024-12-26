@@ -357,9 +357,46 @@ export const state = {
         })
     },
     setReportData(newState){
-
+        const cs = this.getState();
     },
-    async sendReportAlert(){
+    async sendReportAlert(data){
+        const cs = this.getState();
+        const API_URL = deployState.data.api_url;
+
+        // idUsuario al que le avisa
+        const userToSendMailId = cs.petInfo.user_id;
+        // idMascota a mandar
+        const petId = cs.petInfo.id;
+
+        if(petId != 0){
+            return await fetch(API_URL+"/mail", {
+                mode: "cors",
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "from": {
+                        "name": data.name,
+                        "phone": data.phone
+                    },
+                    "to": userToSendMailId,
+                    "pet": petId,
+                    "message": data.message
+                })
+            })
+            .then((res)=>{
+                if(res.status == 200){
+                    return true
+                }
+                else if(res.status == 500){
+                    return false
+                }
+            })
+        }
+        else{
+            alert("No hay mascota seleccionda");
+        }
 
     }
 }

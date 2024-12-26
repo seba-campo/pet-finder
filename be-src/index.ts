@@ -11,7 +11,7 @@ import { loadKeys } from "./controllers/keysController";
 import { Usuario } from "./models/user";
 import { db } from "./db";
 
-const staticDirPath = path.resolve(__dirname, "../fe-dist");
+const staticDirPath = path.resolve(__dirname, "../fe-build");
 const app = Express();
 const PORT = 3015;
 app.use(cors());

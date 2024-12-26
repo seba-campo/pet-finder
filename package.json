@@ -1,7 +1,6 @@
 {
   "name": "jv-crm-api",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "Sebastian Campo <campo.sebastian44@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -38,9 +37,9 @@
     "sync": "ts-node ./be-src/db/sync.ts",
     "dev:fe": "parcel ./fe-src/index.html --dist-dir ./fe-dist",
     "build:fe": "parcel build ./fe-src/index.html --dist-dir ./fe-build",
-    "start": "node ./build/index.js",
+    "start": "node ./be-build/index.js",
     "algolia": "ts-node ./be-src/db/algolia.ts"
-  },
+  },  
   "devDependencies": {
     "buffer": "^5.5.0||^6.0.0",
     "crypto-browserify": "^3.12.0",

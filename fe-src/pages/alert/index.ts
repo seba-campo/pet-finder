@@ -125,12 +125,21 @@ class Alert extends HTMLElement{
         })
 
         const submitCta = div.querySelector(".enviar") as HTMLElement;
-        submitCta.addEventListener("click", ()=>{
+        submitCta.addEventListener("click", async ()=>{
             const name = div.querySelector(".name") as HTMLInputElement;
             const phone = div.querySelector(".phone") as HTMLInputElement;
             const info = div.querySelector(".info") as HTMLInputElement;
 
-            
+            const report = {
+                "name": name.value,
+                "phone": phone.value,
+                "message": info.value 
+            }
+
+            const mailSent = await state.sendReportAlert(report)
+            mailSent ? alert("Mensaje enviado correctamente") : alert("Ocurrió un error")
+
+            deployState.handleRouteGo("/feed");
         })
 
         div.appendChild(style)
