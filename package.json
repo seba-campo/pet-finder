@@ -33,13 +33,13 @@
   },
   "scripts": {
     "dev:be": "nodemon --watch ./be-src/index.ts  --exec ts-node ./be-src/index.ts",
-    "build:be": "tsc",
+    "build:be": "tsc --project ./tsconfig.json",
     "sync": "ts-node ./be-src/db/sync.ts",
     "dev:fe": "parcel ./fe-src/index.html --dist-dir ./fe-dist",
     "build:fe": "parcel build ./fe-src/index.html --dist-dir ./fe-build",
     "start": "node ./be-build/index.js",
     "algolia": "ts-node ./be-src/db/algolia.ts"
-  },  
+  },
   "devDependencies": {
     "buffer": "^5.5.0||^6.0.0",
     "crypto-browserify": "^3.12.0",
@@ -48,6 +48,7 @@
     "path-browserify": "^1.0.0",
     "process": "^0.11.10",
     "querystring-es3": "^0.2.1",
+    "react": "^19.0.0",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.1.0",
     "url": "^0.11.0",
