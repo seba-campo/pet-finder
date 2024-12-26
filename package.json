@@ -33,7 +33,7 @@
   },
   "scripts": {
     "dev:be": "nodemon --watch ./be-src/index.ts  --exec ts-node ./be-src/index.ts",
-    "build:be": "tsc --project ./tsconfig.json",
+    "build:be": "tsc ./be-src/index.ts",
     "sync": "ts-node ./be-src/db/sync.ts",
     "dev:fe": "parcel ./fe-src/index.html --dist-dir ./fe-dist",
     "build:fe": "parcel build ./fe-src/index.html --dist-dir ./fe-build",
