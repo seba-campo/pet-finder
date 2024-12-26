@@ -40,7 +40,7 @@ export const deployState = {
     handleRouteGo(path: string){
         const ds = this.getDeployStatus();
         if(ds){
-            Router.go("/test"+path)
+            Router.go(path)
         }
         if(!ds){
             Router.go(path)

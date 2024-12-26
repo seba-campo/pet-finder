@@ -22,6 +22,7 @@ class Home extends HTMLElement{
             deployState.handleRouteGo("/feed")
         },
         (error)=>{
+            console.log(error)
             alert("Sin la ubicacion no se puede iniciar la app.")
             return error
     });
