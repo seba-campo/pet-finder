@@ -3,9 +3,6 @@ import { Usuario } from "../models/user";
 import { Auth } from "../models/auth";
 import { Pet } from "../models/pet";
 
-
-
-
 (async ()=>{
    try{
     //await Pet.truncate()
