@@ -10,28 +10,27 @@ export function loadKeys(){
     const algoliaWriteApiKey = process.env.ALGOLIA_WRITE_API_KEY;
     const mapboxToken = process.env.MAPBOX_TOKEN;
 
-//     console.log({
-//       "databases": {
-//         "elephant": {
-//               "DB_ENDPOINT_MOCK": dbEndpointMock,
-//               "DB_ENDPOINT": dbEndpoint
-//         },
-//         "supabase":{
-//             "DB_ENDPOINT": dbEndpointSupaBase
-//         },
-//         "algolia": {
-//               "APP_ID": algoliaAppId,
-//               "SEARCH_API_KEY": algoliaSearchApiKey,
-//               "WRITE_API_KEY": algoliaWriteApiKey
-//         }
-//       },
-//       "services": {
-//           "mapbox": {
-//               "token": mapboxToken
-//         }
-//       }
-//   })
-
+    console.log({
+      "databases": {
+        "elephant": {
+              "DB_ENDPOINT_MOCK": dbEndpointMock,
+              "DB_ENDPOINT": dbEndpoint
+        },
+        "supabase":{
+            "DB_ENDPOINT": dbEndpointSupaBase
+        },
+        "algolia": {
+              "APP_ID": algoliaAppId,
+              "SEARCH_API_KEY": algoliaSearchApiKey,
+              "WRITE_API_KEY": algoliaWriteApiKey
+        }
+      },
+      "services": {
+          "mapbox": {
+              "token": mapboxToken
+        }
+      }
+  })
 
     return {
         "databases": {
@@ -41,11 +40,11 @@ export function loadKeys(){
           },
           "supabase":{
             "DB_ENDPOINT": dbEndpointSupaBase
-            },
+          },
           "algolia": {
-                "APP_ID": algoliaAppId,
-                "SEARCH_API_KEY": algoliaSearchApiKey,
-                "WRITE_API_KEY": algoliaWriteApiKey
+            "APP_ID": algoliaAppId,
+            "SEARCH_API_KEY": algoliaSearchApiKey,
+            "WRITE_API_KEY": algoliaWriteApiKey
           }
         },
         "services": {
