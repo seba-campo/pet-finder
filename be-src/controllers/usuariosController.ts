@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { db } from "../db";
 import { Auth } from "../models/auth";
 import { Usuario } from "../models/user";
@@ -19,6 +20,12 @@ type UsuarioData = {
     location: string,
     password: string
 };
+
+type newUserData = {
+    nombre: string,
+    email: string,
+    location: string
+}
 
 const getSHA256ofSTRING = function(input){
     return crypto.createHash('sha256').update(input).digest('hex');
@@ -94,4 +101,18 @@ async function getAllUsuarios(){
     return user
 }
 
-export { registrarUsuarioNuevo, getAllUsuarios, getUsuarioById, authUser, getUsuarioByMail }
+async function updateUser(id: number, newData: newUserData){
+    const userData = await Usuario.findByPk(id);
+
+    if(userData == null){
+        return 404
+    }else{
+        newData.nombre ? userData.set({nombre: newData.nombre}) : null;
+        newData.email ? userData.set({email: newData.email}) : null;
+        newData.location ? userData.set({location: newData.location}) : null;
+        userData.save()
+        return 200
+    }
+}
+
+export { registrarUsuarioNuevo, getAllUsuarios, getUsuarioById, authUser, getUsuarioByMail, updateUser }

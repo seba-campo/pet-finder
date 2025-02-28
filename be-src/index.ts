@@ -30,6 +30,22 @@ app.post("/user", async (req, res)=>{
     }
 });
 
+app.put("/user/:id", async (req, res)=>{
+    try {
+        const id = parseInt(req.params.id);
+        const newData = req.body;
+        const result = await userController.updateUser(id, newData);
+        
+        if (result === 404) {
+            res.status(404).json({ error: "User not found" });
+        } else {
+            res.status(200).json({ message: "User updated successfully" });
+        }
+    } catch (e) {
+        res.status(500).json({ error: "Error updating user" });
+    }
+}) 
+
 // USERS
 app.get("/user", async (req,res)=>{
     try{
